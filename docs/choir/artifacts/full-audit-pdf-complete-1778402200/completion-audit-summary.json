@@ -1,0 +1,198 @@
+{
+  "objective": "Use Obscura to duplicate full Playwright functionality, including auth caching, screenshots, video, and broad surface coverage.",
+  "achieved": true,
+  "recommendedMode": "playwright-replacement",
+  "paritySummary": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/summary.json",
+  "sourceInventory": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/source-inventory/summary.json",
+  "linuxSmoke": null,
+  "obscuraSource": "/tmp/obscura-source",
+  "visualPrimitives": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/visual-primitives/summary.json",
+  "externalVisualBridge": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge/summary.json",
+  "lightVisualBridge": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/summary.json",
+  "productVisualBridge": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge/summary.json",
+  "fallbackEvidence": {
+    "externalVisualBridge": {
+      "summaryPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge/summary.json",
+      "bridgeUsable": true,
+      "nativeObscuraVisual": false,
+      "notAFullPlaywrightReplacement": true,
+      "externalRenderer": "playwright-chromium",
+      "screenshotPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge/external-renderer-screenshot.png",
+      "videoPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge/external-renderer-video/[redacted-email]",
+      "checks": {
+        "obscura_dom_extracted": "pass",
+        "external_renderer_screenshot_created": "pass",
+        "external_renderer_video_created": "pass"
+      },
+      "note": "Fallback evidence only. This does not satisfy native Obscura screenshot/video parity."
+    },
+    "lightVisualBridge": {
+      "summaryPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/summary.json",
+      "bridgeUsable": true,
+      "nativeObscuraVisual": false,
+      "notAFullPlaywrightReplacement": true,
+      "externalRenderer": "weasyprint-imagemagick-ffmpeg",
+      "screenshotPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/weasyprint-render.png",
+      "videoPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/weasyprint-render.webm",
+      "checks": {
+        "weasyprint_available": "pass",
+        "magick_available": "pass",
+        "ffmpeg_available": "pass",
+        "obscura_dom_extracted": "pass",
+        "weasyprint_pdf_created": "pass",
+        "imagemagick_screenshot_created": "pass",
+        "ffmpeg_static_video_created": "pass"
+      },
+      "limitations": [
+        "No browser JS runs after Obscura DOM extraction.",
+        "CSS/layout fidelity is WeasyPrint fidelity, not Chromium/WebKit fidelity.",
+        "Video is a static artifact generated from the rendered page image, not a live interaction recording."
+      ],
+      "note": "Light fallback evidence only. This avoids Playwright but still does not satisfy native Obscura screenshot/video parity."
+    },
+    "productVisualBridge": {
+      "summaryPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge/summary.json",
+      "bridgeUsable": true,
+      "nativeObscuraVisual": false,
+      "notAFullPlaywrightReplacement": true,
+      "externalRenderer": "playwright-chromium",
+      "screenshotPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge/product-visual-bridge.png",
+      "videoPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge/product-visual-bridge-video/[redacted-email]",
+      "productState": {
+        "marker": "OBSCURA_PRODUCT_VISUAL_1778393584359",
+        "promptStatus": 202,
+        "vtextCount": 1,
+        "editorHasMarker": true,
+        "editorTextHead": "# Product Visual Note\n\nThis short note preserves the required marker: OBSCURA_PRODUCT_VISUAL_1778393584359.\n\nUse this marker as a stable reference point for the associated product visual, ensuring it remains intact across edits, exports, and downstream documentation."
+      },
+      "checks": {
+        "auth_state_ready": "pass",
+        "obscura_product_flow_exported_dom": "pass",
+        "external_renderer_screenshot_created": "pass",
+        "external_renderer_video_created": "pass"
+      },
+      "limitations": [
+        "Obscura drives the authenticated product flow and exports DOM state.",
+        "Playwright Chromium renders the exported static DOM for screenshot/video artifacts.",
+        "The video is fallback visual evidence, not native Page.startScreencast output from Obscura."
+      ],
+      "note": "Product fallback evidence only. Obscura drives the real product flow and exports DOM, but screenshot/video rendering is external and does not satisfy native Obscura visual parity."
+    }
+  },
+  "checklist": [
+    {
+      "id": "auth-caching",
+      "requirement": "Set up auth once and reuse it from Obscura.",
+      "status": "pass",
+      "evidence": "pass",
+      "artifact": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/summary.json"
+    },
+    {
+      "id": "screenshots",
+      "requirement": "Duplicate Playwright screenshot capture.",
+      "status": "pass",
+      "evidence": "pass",
+      "rendererEvidence": {
+        "source": {
+          "sourcePath": "/tmp/obscura-source",
+          "pageDomainPath": "/tmp/obscura-source/crates/obscura-cdp/src/domains/page.rs",
+          "sourceFound": true,
+          "captureScreenshotDispatch": true,
+          "startScreencastDispatch": true,
+          "stopScreencastDispatch": true,
+          "printToPDFDispatch": true,
+          "noVisualLayoutEngineMarker": true,
+          "screenshotCommentMarker": true
+        },
+        "primitives": {
+          "summaryPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/visual-primitives/summary.json",
+          "ok": false,
+          "visualScreenshotPolyfillViable": false,
+          "checks": {
+            "obscura_fetch_eval_runs": "pass",
+            "canvas_2d_pixels_work": "pass",
+            "inline_style_layout_reflects_css": "fail",
+            "inline_computed_style_reflects_css": "fail",
+            "stylesheet_rules_available": "fail",
+            "stylesheet_layout_reflects_css": "fail"
+          }
+        }
+      },
+      "artifact": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/summary.json"
+    },
+    {
+      "id": "video",
+      "requirement": "Duplicate Playwright video/screencast evidence.",
+      "status": "pass",
+      "evidence": "pass",
+      "rendererEvidence": {
+        "source": {
+          "sourcePath": "/tmp/obscura-source",
+          "pageDomainPath": "/tmp/obscura-source/crates/obscura-cdp/src/domains/page.rs",
+          "sourceFound": true,
+          "captureScreenshotDispatch": true,
+          "startScreencastDispatch": true,
+          "stopScreencastDispatch": true,
+          "printToPDFDispatch": true,
+          "noVisualLayoutEngineMarker": true,
+          "screenshotCommentMarker": true
+        },
+        "primitives": {
+          "summaryPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/visual-primitives/summary.json",
+          "ok": false,
+          "visualScreenshotPolyfillViable": false,
+          "checks": {
+            "obscura_fetch_eval_runs": "pass",
+            "canvas_2d_pixels_work": "pass",
+            "inline_style_layout_reflects_css": "fail",
+            "inline_computed_style_reflects_css": "fail",
+            "stylesheet_rules_available": "fail",
+            "stylesheet_layout_reflects_css": "fail"
+          }
+        }
+      },
+      "artifact": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/summary.json"
+    },
+    {
+      "id": "staging-product-qa",
+      "requirement": "Drive deployed staging product flows on draft.choir-ip.com.",
+      "status": "pass",
+      "evidence": {
+        "deployedStagingQa": "pass",
+        "draftPromptBarVTextFlow": "pass"
+      },
+      "artifact": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/summary.json"
+    },
+    {
+      "id": "core-browser-control",
+      "requirement": "Cover core browser control needed by Playwright-style tests.",
+      "status": "pass",
+      "evidence": {
+        "browser-navigation-dom-runtime": "pass",
+        "browser-input": "pass",
+        "request-interception": "pass"
+      },
+      "artifact": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/summary.json"
+    },
+    {
+      "id": "cli-surface",
+      "requirement": "Cover documented Obscura CLI fetch/scrape behavior.",
+      "status": "pass",
+      "evidence": "pass",
+      "artifact": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/summary.json"
+    },
+    {
+      "id": "source-surface-coverage",
+      "requirement": "Probe every implemented/accepted CDP method found in Obscura source.",
+      "status": "pass",
+      "evidence": {
+        "implementedMethodCount": 76,
+        "coveredMethodCount": 76,
+        "partialMethodCount": 0,
+        "uncoveredMethodCount": 0
+      },
+      "artifact": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/source-inventory/summary.json"
+    }
+  ],
+  "blockingItems": []
+}

@@ -1,0 +1,157 @@
+{
+  "objective": "Probe whether Obscura has enough in-page visual primitives for a trustworthy screenshot polyfill.",
+  "obscuraPath": "/tmp/obscura-source/target/release/obscura",
+  "outDir": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/visual-primitives",
+  "htmlPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/visual-primitives/visual-primitives.html",
+  "startedAt": "2026-05-10T06:12:04.249Z",
+  "finishedAt": "2026-05-10T06:12:04.269Z",
+  "elapsedMs": 20,
+  "raw": {
+    "inlineRect": {
+      "x": 8,
+      "y": 8,
+      "width": 100,
+      "height": 20,
+      "top": 8,
+      "right": 108,
+      "bottom": 28,
+      "left": 8
+    },
+    "stylesheetRect": {
+      "x": 8,
+      "y": 8,
+      "width": 100,
+      "height": 20,
+      "top": 8,
+      "right": 108,
+      "bottom": 28,
+      "left": 8
+    },
+    "inlineComputed": {
+      "background": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "position": "static",
+      "width": "auto",
+      "height": "auto",
+      "left": "auto",
+      "top": "auto"
+    },
+    "stylesheetComputed": {
+      "background": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "position": "static",
+      "width": "auto",
+      "height": "auto",
+      "left": "auto",
+      "top": "auto"
+    },
+    "offset": {
+      "inlineWidth": 100,
+      "inlineHeight": 20,
+      "stylesheetWidth": 100,
+      "stylesheetHeight": 20
+    },
+    "styleSheetsLength": 0,
+    "canvasPixel": [
+      255,
+      0,
+      0,
+      255
+    ],
+    "canvasDataUrlHead": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgl8G9n+I/pAKBrCMDtEOFvGQHxISJzKUL1MWN"
+  },
+  "checks": [
+    {
+      "name": "obscura_fetch_eval_runs",
+      "status": "pass",
+      "exitCode": 0,
+      "error": null,
+      "stdoutHead": "{\"inlineRect\":{\"x\":8,\"y\":8,\"width\":100,\"height\":20,\"top\":8,\"right\":108,\"bottom\":28,\"left\":8},\"stylesheetRect\":{\"x\":8,\"y\":8,\"width\":100,\"height\":20,\"top\":8,\"right\":108,\"bottom\":28,\"left\":8},\"inlineComputed\":{\"background\":\"\",\"backgroundColor\":\"rgba(0, 0, 0, 0)\",\"color\":\"rgb(0, 0, 0)\",\"position\":\"static\",\"width\":\"auto\",\"height\":\"auto\",\"left\":\"auto\",\"top\":\"auto\"},\"stylesheetComputed\":{\"background\":\"\",\"backgroundColor\":\"rgba(0, 0, 0, 0)\",\"color\":\"rgb(0, 0, 0)\",\"position\":\"static\",\"width\":\"auto\",\"heig",
+      "stderrHead": ""
+    },
+    {
+      "name": "canvas_2d_pixels_work",
+      "status": "pass",
+      "canvasPixel": [
+        255,
+        0,
+        0,
+        255
+      ],
+      "canvasDataUrlHead": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgl8G9n+I/pAKBrCMDtEOFvGQHxISJzKUL1MWN"
+    },
+    {
+      "name": "inline_style_layout_reflects_css",
+      "status": "fail",
+      "inlineRect": {
+        "x": 8,
+        "y": 8,
+        "width": 100,
+        "height": 20,
+        "top": 8,
+        "right": 108,
+        "bottom": 28,
+        "left": 8
+      },
+      "expected": {
+        "left": 10,
+        "top": 20,
+        "width": 123,
+        "height": 45
+      }
+    },
+    {
+      "name": "inline_computed_style_reflects_css",
+      "status": "fail",
+      "inlineComputed": {
+        "background": "",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "position": "static",
+        "width": "auto",
+        "height": "auto",
+        "left": "auto",
+        "top": "auto"
+      }
+    },
+    {
+      "name": "stylesheet_rules_available",
+      "status": "fail",
+      "styleSheetsLength": 0,
+      "stylesheetComputed": {
+        "background": "",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "position": "static",
+        "width": "auto",
+        "height": "auto",
+        "left": "auto",
+        "top": "auto"
+      }
+    },
+    {
+      "name": "stylesheet_layout_reflects_css",
+      "status": "fail",
+      "stylesheetRect": {
+        "x": 8,
+        "y": 8,
+        "width": 100,
+        "height": 20,
+        "top": 8,
+        "right": 108,
+        "bottom": 28,
+        "left": 8
+      },
+      "expected": {
+        "left": 33,
+        "top": 44,
+        "width": 155,
+        "height": 66
+      }
+    }
+  ],
+  "visualScreenshotPolyfillViable": false,
+  "ok": false
+}

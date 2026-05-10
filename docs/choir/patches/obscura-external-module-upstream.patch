@@ -1,0 +1,13 @@
+diff --git a/crates/obscura-js/src/runtime.rs b/crates/obscura-js/src/runtime.rs
+index 904cd3e..aafd8de 100644
+--- a/crates/obscura-js/src/runtime.rs
++++ b/crates/obscura-js/src/runtime.rs
+@@ -360,7 +360,7 @@ impl ObscuraJsRuntime {
+ 
+         let module_id = self
+             .runtime
+-            .load_side_es_module_from_code(&specifier, deno_core::ModuleCodeString::from_static(""))
++            .load_side_es_module(&specifier)
+             .await
+             .map_err(|e| format!("Module load error: {}", e))?;
+ 

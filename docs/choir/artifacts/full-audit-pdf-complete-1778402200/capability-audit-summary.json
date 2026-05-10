@@ -1,0 +1,3192 @@
+{
+  "objective": "Obscura capability audit for Playwright parity, auth caching, screenshots, video, and browser surface",
+  "obscuraPath": "/tmp/obscura-source/target/release/obscura",
+  "baseURL": "https://draft.choir-ip.com",
+  "authStatePath": "[redacted-auth-state-path]",
+  "outDir": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit",
+  "platform": "darwin",
+  "arch": "arm64",
+  "startedAt": "2026-05-10T06:10:44.202Z",
+  "finishedAt": "2026-05-10T06:12:04.157Z",
+  "results": [
+    {
+      "name": "auth_state_file_present",
+      "status": "pass",
+      "authStatePath": "[redacted-auth-state-path]",
+      "note": "using supplied or generated Playwright storageState"
+    },
+    {
+      "name": "obscura_binary_present",
+      "status": "pass",
+      "path": "/tmp/obscura-source/target/release/obscura",
+      "size": 60349536
+    },
+    {
+      "name": "cli_help",
+      "status": "pass",
+      "elapsed_ms": 2178,
+      "stdout_head": "Obscura - A lightweight headless browser for web scraping and automation\n\nUsage: obscura [OPTIONS] [COMMAND]\n\nCommands:\n  serve   \n  fetch   \n  scrape  \n  help    Print this message or the help of the given subcommand(s)\n\nOptions:\n  -v, --verbose                  \n  -p, --port <PORT>              [default: 9222]\n      --proxy <PROXY>            \n      --obey-robots              \n      --user-agent <USER_AGENT>  \n  -h, --help                     Print help\n",
+      "stderr_head": ""
+    },
+    {
+      "name": "cli_fetch_help",
+      "status": "pass",
+      "elapsed_ms": 9,
+      "stdout_head": "Usage: obscura fetch [OPTIONS] <URL>\n\nArguments:\n  <URL>  \n\nOptions:\n      --dump <DUMP>              [default: html] [possible values: html, text, links]\n  -v, --verbose                  \n      --selector <SELECTOR>      \n      --wait <WAIT>              [default: 5]\n      --timeout <TIMEOUT>        [default: 30]\n      --wait-until <WAIT_UNTIL>  [default: load]\n      --user-agent <USER_AGENT>  \n      --stealth                  \n  -e, --eval <EVAL>              \n  -o, --output <OUTPUT>          \n  -q, --quiet                    \n  -h, --help                     Print help\n",
+      "stderr_head": ""
+    },
+    {
+      "name": "cli_serve_help",
+      "status": "pass",
+      "elapsed_ms": 10,
+      "stdout_head": "Usage: obscura serve [OPTIONS]\n\nOptions:\n  -p, --port <PORT>              [default: 9222]\n  -v, --verbose                  \n      --proxy <PROXY>            \n      --user-agent <USER_AGENT>  \n      --stealth                  \n      --obey-robots              \n      --workers <WORKERS>        [default: 1]\n  -h, --help                     Print help\n",
+      "stderr_head": ""
+    },
+    {
+      "name": "cli_scrape_help",
+      "status": "pass",
+      "elapsed_ms": 10,
+      "stdout_head": "Usage: obscura scrape [OPTIONS] [URLS]...\n\nArguments:\n  [URLS]...  \n\nOptions:\n  -e, --eval <EVAL>                \n  -v, --verbose                    \n      --concurrency <CONCURRENCY>  [default: 10]\n      --format <FORMAT>            [default: json]\n      --timeout <TIMEOUT>          [default: 60]\n  -q, --quiet                      \n  -h, --help                       Print help\n",
+      "stderr_head": ""
+    },
+    {
+      "name": "cli_fetch_eval_title",
+      "status": "pass",
+      "elapsed_ms": 122,
+      "status_code": 0,
+      "signal": null,
+      "stdout_head": "Example Domain\n",
+      "stderr_head": "Fetching https://example.com...\nPage loaded: https://example.com/ - \"Example Domain\"\n"
+    },
+    {
+      "name": "cli_fetch_dump_text_stdout",
+      "status": "pass",
+      "elapsed_ms": 114,
+      "bytes": 130,
+      "stdout_head": "Example Domain\n\nThis domain is for use in documentation examples without needing permission. Avoid use in operations.\n\nLearn more\n",
+      "stderr_head": ""
+    },
+    {
+      "name": "cli_fetch_output_file_flag",
+      "status": "pass",
+      "note": "",
+      "elapsed_ms": 137,
+      "status_code": 0,
+      "stderr_head": "Fetching https://example.com...\nPage loaded: https://example.com/ - \"Example Domain\"\n"
+    },
+    {
+      "name": "cli_fetch_output_short_flag",
+      "status": "pass",
+      "note": "",
+      "elapsed_ms": 130,
+      "status_code": 0,
+      "stderr_head": "Fetching https://example.com...\nPage loaded: https://example.com/ - \"Example Domain\"\n"
+    },
+    {
+      "name": "cli_fetch_user_agent_flag",
+      "status": "pass",
+      "elapsed_ms": 201,
+      "status_code": 0,
+      "stdout_head": "{\n  \"user-agent\": \"ChoirObscuraFetch/1.0\"\n}\n",
+      "stderr_head": ""
+    },
+    {
+      "name": "cli_global_user_agent_applies_to_fetch",
+      "status": "pass",
+      "note": "top-level --user-agent is accepted but does not affect fetch in the tested binary",
+      "elapsed_ms": 168,
+      "status_code": 0,
+      "stdout_head": "{\n  \"user-agent\": \"ChoirObscuraGlobal/1.0\"\n}\n",
+      "stderr_head": ""
+    },
+    {
+      "name": "cli_serve_obey_robots_flag",
+      "status": "pass",
+      "note": "",
+      "elapsed_ms": 9,
+      "status_code": 0,
+      "stdout_head": "Usage: obscura serve [OPTIONS]\n\nOptions:\n  -p, --port <PORT>              [default: 9222]\n  -v, --verbose                  \n      --proxy <PROXY>            \n      --user-agent <USER_AGENT>  \n      --stealth                  \n      --obey-robots              \n      --workers <WORKERS>        [default: 1]\n  -h, --help                     Print help\n",
+      "stderr_head": ""
+    },
+    {
+      "name": "cli_fetch_dump_links",
+      "status": "pass",
+      "elapsed_ms": 121,
+      "stdout_head": "https://iana.org/domains/example\tLearn more\n"
+    },
+    {
+      "name": "cli_fetch_selector_eval",
+      "status": "pass",
+      "elapsed_ms": 123,
+      "stdout_head": "Example Domain\n"
+    },
+    {
+      "name": "cli_fetch_stealth_eval",
+      "status": "pass",
+      "elapsed_ms": 123,
+      "stdout_head": "true\n",
+      "stderr_head": "Fetching https://example.com...\nPage loaded: https://example.com/ - \"Example Domain\"\n"
+    },
+    {
+      "name": "cli_fetch_wait_until_networkidle0",
+      "status": "pass",
+      "elapsed_ms": 618,
+      "stdout_head": "Example Domain\n",
+      "stderr_head": "Fetching https://example.com...\nPage loaded: https://example.com/ - \"Example Domain\"\n"
+    },
+    {
+      "name": "cli_scrape_parallel_eval",
+      "status": "pass",
+      "elapsed_ms": 2059,
+      "stdout_head": "{\n  \"total_urls\": 2,\n  \"concurrency\": 2,\n  \"total_time_ms\": 2049,\n  \"avg_time_ms\": 1024.5,\n  \"results\": [\n    {\n      \"url\": \"https://example.com\",\n      \"title\": \"Example Domain\",\n      \"eval\": \"Example Domain\",\n      \"time_ms\": 1308,\n      \"worker\": 0\n    },\n    {\n      \"url\": \"https://www.iana.org/domains/reserved\",\n      \"title\": \"IANA-managed Reserved Domains\",\n      \"eval\": \"IANA-managed Reserved Domains\",\n      \"time_ms\": 2047,\n      \"worker\": 1\n    }\n  ]\n}\n",
+      "stderr_head": "Scraping 2 URLs with 2 concurrent workers (per-worker timeout: 60s)...\n"
+    },
+    {
+      "name": "cdp_json_version",
+      "status": "pass",
+      "version": {
+        "Browser": "Obscura/0.1.0",
+        "Protocol-Version": "1.3",
+        "User-Agent": "Obscura/0.1.0 (Headless Browser)",
+        "V8-Version": "N/A",
+        "WebKit-Version": "N/A",
+        "webSocketDebuggerUrl": "ws://127.0.0.1:22735/devtools/browser"
+      },
+      "logPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/obscura-serve.log"
+    },
+    {
+      "name": "cdp_http_json_list",
+      "status": "pass",
+      "target_count": 1
+    },
+    {
+      "name": "cdp_http_json_protocol",
+      "status": "pass",
+      "protocol": {
+        "version": {
+          "major": "1",
+          "minor": "3"
+        }
+      }
+    },
+    {
+      "name": "cdp_browser_get_version",
+      "status": "pass",
+      "protocolVersion": "1.3",
+      "product": "Obscura/0.1.0",
+      "revision": "0",
+      "userAgent": "Obscura/0.1.0",
+      "jsVersion": "V8"
+    },
+    {
+      "name": "cdp_browser_window_download_methods",
+      "status": "pass",
+      "windowForTarget": {
+        "windowId": 1,
+        "bounds": {
+          "left": 0,
+          "top": 0,
+          "width": 1280,
+          "height": 720,
+          "windowState": "normal"
+        }
+      },
+      "bounds": {},
+      "note": "Browser.getWindowBounds returned an empty object; Browser.getWindowForTarget returned static bounds"
+    },
+    {
+      "name": "cdp_target_get_targets",
+      "status": "pass",
+      "target_count": 1
+    },
+    {
+      "name": "cdp_target_metadata_autodiscovery",
+      "status": "pass",
+      "browserSession": {
+        "sessionId": "browser-session"
+      },
+      "contexts": {
+        "browserContextIds": [
+          "default"
+        ]
+      },
+      "info": {
+        "targetInfo": {
+          "targetId": "page-1",
+          "type": "page",
+          "title": "",
+          "url": "about:blank",
+          "attached": true,
+          "browserContextId": "default"
+        }
+      }
+    },
+    {
+      "name": "cdp_target_browser_context_create_dispose",
+      "status": "pass",
+      "browserContextId": "default",
+      "targetId": "page-2",
+      "closeResult": {
+        "success": true
+      }
+    },
+    {
+      "name": "cdp_schema_get_domains",
+      "status": "pass",
+      "domain_count": 25,
+      "domains": [
+        "Accessibility",
+        "Audits",
+        "Browser",
+        "CSS",
+        "Debugger",
+        "DOM",
+        "Emulation",
+        "Fetch",
+        "HeapProfiler",
+        "Input",
+        "Inspector",
+        "Log",
+        "LP",
+        "Network",
+        "Overlay",
+        "Page",
+        "Performance",
+        "Profiler",
+        "Runtime",
+        "Schema",
+        "Security",
+        "ServiceWorker",
+        "Storage",
+        "Target",
+        "WebAuthn"
+      ]
+    },
+    {
+      "name": "cdp_noop_domains_enable",
+      "status": "pass",
+      "outcomes": [
+        {
+          "method": "Audits.enable",
+          "status": "pass"
+        },
+        {
+          "method": "CSS.enable",
+          "status": "pass"
+        },
+        {
+          "method": "Debugger.enable",
+          "status": "pass"
+        },
+        {
+          "method": "Emulation.setDeviceMetricsOverride",
+          "status": "pass"
+        },
+        {
+          "method": "HeapProfiler.enable",
+          "status": "pass"
+        },
+        {
+          "method": "Inspector.enable",
+          "status": "pass"
+        },
+        {
+          "method": "Log.enable",
+          "status": "pass"
+        },
+        {
+          "method": "Overlay.enable",
+          "status": "pass"
+        },
+        {
+          "method": "Performance.enable",
+          "status": "pass"
+        },
+        {
+          "method": "Profiler.enable",
+          "status": "pass"
+        },
+        {
+          "method": "Security.enable",
+          "status": "pass"
+        },
+        {
+          "method": "ServiceWorker.enable",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "name": "cdp_navigation_runtime_eval",
+      "status": "pass",
+      "title": "Example Domain",
+      "body_head": "Example DomainThis domain is for use in documentation examples without needing permission. Avoid use in operations.Learn more\n"
+    },
+    {
+      "name": "cdp_network_request_response_events",
+      "status": "pass",
+      "request_count": 1,
+      "response_count": 1,
+      "request_urls": [
+        "https://example.com/?network-events=1"
+      ],
+      "response_urls": [
+        "https://example.com/?network-events=1"
+      ]
+    },
+    {
+      "name": "cdp_runtime_console_events",
+      "status": "pass",
+      "event_count": 2,
+      "events": [
+        {
+          "method": "Runtime.consoleAPICalled",
+          "params": {
+            "type": "log",
+            "args": [
+              {
+                "type": "string",
+                "value": "choir-obscura-console-log"
+              }
+            ],
+            "executionContextId": 1,
+            "timestamp": 1778393455.711905
+          },
+          "sessionId": "page-1-session"
+        },
+        {
+          "method": "Runtime.consoleAPICalled",
+          "params": {
+            "type": "error",
+            "args": [
+              {
+                "type": "string",
+                "value": "choir-obscura-console-error"
+              }
+            ],
+            "executionContextId": 1,
+            "timestamp": 1778393455.711905
+          },
+          "sessionId": "page-1-session"
+        }
+      ]
+    },
+    {
+      "name": "cdp_inline_module_script_execution",
+      "status": "pass",
+      "moduleRan": true,
+      "appText": "module ok",
+      "bodyText": "module okdocument.querySelector(\"#app\").textContent = \"module ok\"; window.__choirModuleRan = true;"
+    },
+    {
+      "name": "cdp_external_module_script_execution",
+      "status": "pass",
+      "moduleRan": true,
+      "appText": "external module ok",
+      "bodyText": "external module ok",
+      "moduleURL": "https://httpbin.org/base64/ZG9jdW1lbnQucXVlcnlTZWxlY3RvcigiI2FwcCIpLnRleHRDb250ZW50ID0gImV4dGVybmFsIG1vZHVsZSBvayI7IHdpbmRvdy5fX2Nob2lyRXh0ZXJuYWxNb2R1bGVSYW4gPSB0cnVlOw%3D%3D",
+      "note": "External module scripts must execute for Vite/Svelte bundles; upstream Obscura logs external modules as loaded while evaluating empty root module code."
+    },
+    {
+      "name": "cdp_accessibility_get_full_ax_tree",
+      "status": "pass",
+      "node_count": 18,
+      "roles": [
+        "RootWebArea",
+        "generic",
+        "generic",
+        "generic",
+        "StaticText",
+        "generic",
+        "generic",
+        "StaticText",
+        "generic",
+        "generic",
+        "heading",
+        "StaticText",
+        "generic",
+        "StaticText",
+        "generic",
+        "link",
+        "StaticText",
+        "StaticText"
+      ],
+      "names": [
+        "Example Domain",
+        "body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}",
+        "Example Domain",
+        "This domain is for use in documentation examples without needing permission. Avoid use in operations.",
+        "Learn more"
+      ]
+    },
+    {
+      "name": "cdp_page_get_frame_tree",
+      "status": "pass",
+      "frameTree": {
+        "frameTree": {
+          "frame": {
+            "id": "page-1",
+            "loaderId": "initial-loader",
+            "url": "https://example.com/?accessibility=1",
+            "domainAndRegistry": "",
+            "securityOrigin": "https://example.com/?accessibility=1",
+            "mimeType": "text/html",
+            "adFrameStatus": {
+              "adFrameType": "none"
+            }
+          },
+          "childFrames": []
+        }
+      }
+    },
+    {
+      "name": "cdp_page_layout_history_isolated_world_scripts",
+      "status": "pass",
+      "isolated": {
+        "executionContextId": 100
+      },
+      "layout": {
+        "layoutViewport": {
+          "pageX": 0,
+          "pageY": 0,
+          "clientWidth": 1280,
+          "clientHeight": 720
+        },
+        "visualViewport": {
+          "offsetX": 0,
+          "offsetY": 0,
+          "pageX": 0,
+          "pageY": 0,
+          "clientWidth": 1280,
+          "clientHeight": 720,
+          "scale": 1,
+          "zoom": 1
+        },
+        "contentSize": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 20
+        },
+        "cssLayoutViewport": {
+          "pageX": 0,
+          "pageY": 0,
+          "clientWidth": 1280,
+          "clientHeight": 720
+        },
+        "cssVisualViewport": {
+          "offsetX": 0,
+          "offsetY": 0,
+          "pageX": 0,
+          "pageY": 0,
+          "clientWidth": 1280,
+          "clientHeight": 720,
+          "scale": 1,
+          "zoom": 1
+        },
+        "cssContentSize": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 20
+        }
+      },
+      "history": {
+        "currentIndex": 0,
+        "entries": [
+          {
+            "id": 0,
+            "url": "https://example.com/?accessibility=1",
+            "userTypedURL": "https://example.com/?accessibility=1",
+            "title": "Example Domain",
+            "transitionType": "typed"
+          }
+        ]
+      }
+    },
+    {
+      "name": "cdp_page_lifecycle_events",
+      "status": "pass",
+      "event_count": 5,
+      "event_names": [
+        "init",
+        "commit",
+        "DOMContentLoaded",
+        "load",
+        "networkIdle"
+      ]
+    },
+    {
+      "name": "cdp_page_add_script_on_new_document",
+      "status": "pass",
+      "value": 42
+    },
+    {
+      "name": "cdp_dom_query",
+      "status": "pass",
+      "outerHTML": "<h1>Example Domain</h1>"
+    },
+    {
+      "name": "cdp_dom_query_all_resolve_node",
+      "status": "pass",
+      "count": 2,
+      "object": {
+        "type": "object",
+        "subtype": "node",
+        "className": "HTMLPElement",
+        "description": "p",
+        "objectId": "{\"injectedScriptId\":1,\"id\":2}"
+      }
+    },
+    {
+      "name": "cdp_runtime_call_function_get_properties",
+      "status": "pass",
+      "sum": 5,
+      "property_count": 2
+    },
+    {
+      "name": "cdp_runtime_add_binding",
+      "status": "pass"
+    },
+    {
+      "name": "cdp_runtime_release_exception_helpers",
+      "status": "pass",
+      "hadObjectID": true,
+      "exceptionDetails": {
+        "exceptionDetails": null
+      }
+    },
+    {
+      "name": "cdp_dom_describe_box_and_mutation_stubs",
+      "status": "pass",
+      "described": {
+        "nodeId": 11,
+        "backendNodeId": 11,
+        "childNodeCount": 1,
+        "nodeType": 1,
+        "nodeName": "H1",
+        "localName": "h1",
+        "nodeValue": "",
+        "attributes": [],
+        "children": [
+          {
+            "nodeId": 12,
+            "backendNodeId": 12,
+            "childNodeCount": 0,
+            "nodeType": 3,
+            "nodeName": "#text",
+            "localName": "",
+            "nodeValue": "Example Domain"
+          }
+        ]
+      },
+      "box": {
+        "model": {
+          "content": [
+            8,
+            8,
+            108,
+            8,
+            108,
+            28,
+            8,
+            28
+          ],
+          "padding": [
+            8,
+            8,
+            108,
+            8,
+            108,
+            28,
+            8,
+            28
+          ],
+          "border": [
+            8,
+            8,
+            108,
+            8,
+            108,
+            28,
+            8,
+            28
+          ],
+          "margin": [
+            0,
+            0,
+            116,
+            0,
+            116,
+            36,
+            0,
+            36
+          ],
+          "width": 100,
+          "height": 20
+        }
+      },
+      "note": "setAttributeValue/removeNode are accepted no-op stubs in current Obscura"
+    },
+    {
+      "name": "cdp_cookie_set_get",
+      "status": "pass",
+      "body_head": "{\n  \"cookies\": {\n    \"obscura_audit\": \"ok\"\n  }\n}\n"
+    },
+    {
+      "name": "cdp_network_cookie_helpers",
+      "status": "pass",
+      "before_count": 2,
+      "after_count": 0,
+      "hadCookie": true,
+      "removedCookie": true,
+      "note": "setCacheDisabled/setRequestInterception are accepted stubs; Fetch interception is tested separately"
+    },
+    {
+      "name": "cdp_network_headers_and_user_agent",
+      "status": "pass",
+      "body_head": "{\n  \"headers\": {\n    \"Accept\": \"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7\", \n    \"Accept-Encoding\": \"gzip,deflate,br\", \n    \"Accept-Language\": \"en-US,en;q=0.9\", \n    \"Host\": \"httpbin.org\", \n    \"Sec-Ch-Ua\": \"\\\"Chromium\\\";v=\\\"145\\\", \\\"Not;A=Brand\\\";v=\\\"24\\\", \\\"Google Chrome\\\";v=\\\"145\\\"\", \n    \"Sec-Ch-Ua-Mobile\": \"?0\", \n    \"Sec-Ch-Ua-Platform\": \"\\\"Linux\\\"\", \n    \"Sec-Fetch-Dest\": \"document\", \n    \"Sec-Fetch-Mode\": \"navigate\", \n    \"Sec-Fetch-Site\": \"none\", \n    \"Sec-Fetch-User\": \"?1\", \n    \"Upgrade-Insecure-Requests\": \"1\", \n    \"User-Agent\": \"ChoirObscuraAudit/1.0\", \n    \"X-Amzn-Trace-Id\": \"Root=1-6a002182-44a75cbd64198e883001aa97\", \n    \"X-Choir-Obscura-Audit\": \"yes\"\n  }\n}\n"
+    },
+    {
+      "name": "cdp_storage_set_get_delete_cookies",
+      "status": "pass",
+      "before_count": 1,
+      "after_count": 0,
+      "hadCookie": true,
+      "removedCookie": true
+    },
+    {
+      "name": "cdp_fetch_fulfill_request",
+      "status": "pass",
+      "title": "Intercepted"
+    },
+    {
+      "name": "cdp_fetch_lifecycle_methods",
+      "status": "pass",
+      "body": {
+        "body": "",
+        "base64Encoded": false
+      },
+      "note": "These calls prove method acceptance only; real paused-request interception is tested separately."
+    },
+    {
+      "name": "cdp_form_submit_redirect_cookie_flow",
+      "status": "pass",
+      "body_head": "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"comments\": \"form submit audit\", \n    \"custemail\": \"\", \n    \"custname\": \"Choir Obscura\", \n    \"custtel\": \"\", \n    \"delivery\": \"\"\n  }, \n  \"headers\": {\n    \"Accept\": \"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7\", \n    \"Accept-Encoding\": \"gzip,deflate,br\", \n    \"Accept-Language\": \"en-US,en;q=0.9\", \n    \"Content-Length\": \"79\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"Sec-Ch-Ua\": \"\\\"Chromium\\\";v=\\\"145\\\", \\\"Not;A=Brand\\\";v=\\\"24\\\", \\\"Google Chrome\\\";v=\\\"145\\\"\", \n    \"Sec-Ch-Ua-Mobile\": \"?0\", \n    \"Sec-Ch-Ua-Platform\": \"\\\"Linux\\\"\", \n    \"Sec-Fetch-Dest\": \"document\", \n    \"Sec-Fetch-Mode\": \"navigate\", \n    \"Sec-Fetch-Site\": \"none\", \n    \"Sec-Fetch-User\": \"?1\", \n    \"Upgrade-Insecure-Requests\": \"1\", \n    \"User-Agent\": \"ChoirObscuraAudit/1.0\", \n    \"X-Amzn-Trace-Id\": \"Root=1-6a00218a-729493393"
+    },
+    {
+      "name": "cdp_lp_get_markdown",
+      "status": "pass",
+      "markdown_head": "# Example Domain\n\nThis domain is for use in documentation examples without needing permission. Avoid use in operations.\n\n[Learn more](https://iana.org/domains/example)"
+    },
+    {
+      "name": "cdp_page_print_to_pdf",
+      "status": "pass",
+      "pdfPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/obscura-cdp-print.pdf",
+      "bytes": 8577
+    },
+    {
+      "name": "cdp_page_capture_screenshot",
+      "status": "pass",
+      "screenshotPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/obscura-cdp-screenshot.png"
+    },
+    {
+      "name": "cdp_screencast_video_primitives",
+      "status": "pass",
+      "frame_count": 1
+    },
+    {
+      "name": "cdp_input_dispatch_key_event",
+      "status": "pass",
+      "value": "a"
+    },
+    {
+      "name": "cdp_input_dispatch_mouse_event",
+      "status": "pass",
+      "value": "clicked"
+    },
+    {
+      "name": "cdp_input_touch_ignore_stubs",
+      "status": "pass",
+      "note": "touch/ignore methods are accepted stubs in current Obscura"
+    },
+    {
+      "name": "cdp_web_storage_via_runtime",
+      "status": "pass",
+      "value": "ok:ok"
+    },
+    {
+      "name": "cdp_private_localhost_navigation",
+      "status": "pass",
+      "origin": "http://127.0.0.1:52327",
+      "body_head": "local obscura ok"
+    },
+    {
+      "name": "cdp_webauthn_domain",
+      "status": "pass"
+    },
+    {
+      "name": "cdp_auth_state_reuse",
+      "status": "pass",
+      "attempts": [
+        {
+          "seeded": {
+            "cookieCount": 2
+          },
+          "authenticated": true,
+          "body_head": "{\"authenticated\":true,\"user\":{\"id\":\"[redacted-uuid]\",\"email\":\"[redacted-email]\",\"created_at\":\"2026-05-10T06:06:45Z\"}}\n"
+        }
+      ],
+      "refresh": null
+    },
+    {
+      "name": "draft_spa_hydration",
+      "status": "pass",
+      "location": "https://draft.choir-ip.com/",
+      "readyState": "complete",
+      "appHTML": "<div class=\"desktop desktop-ready svelte-1dj0ze\" data-desktop=\"\" data-shell=\"\"><div class=\"desktop-area state-loaded svelte-1dj0ze\" data-desktop-windows=\"\"><div class=\"desktop-surface svelte-1sc2e4\" data-desktop-surface=\"\"><div class=\"desktop-icon    svelte-1sc2e4\" data-desktop-icon=\"\" data-desktop-icon-id=\"files\" role=\"button\" tabindex=\"0\" aria-label=\"Files\"><span class=\"icon-emoji svelte-1sc2e4\" data-desktop-icon-emoji=\"\">📁</span> <span class=\"icon-label svelte-1sc2e4\" data-desktop-icon-label",
+      "hasDesktop": true,
+      "hasAuthEntry": false,
+      "bodyText": "\n    📁 Files  🌐 Browser  💻 Terminal  ⚙️ Settings  📝 VText  🔎 Trace   Draft a short VText note that preserves the marker — ☐ ✕ v1 < > Latest Read Edit Revise A short note preserving the requested marker:\n\nOBSCURA_PROMPT_BAR_1778393323746\n\nThis note intentionally keeps the marker intact for reference, continuity, or downstream use.   Document loaded   Draft a short VText note that preserves the marker — ☐ ✕ v1 < > Latest Read Edit Revise # Product Visual Note\n\nThis short note preserves the re",
+      "title": "go-choir",
+      "scripts": [
+        {
+          "type": "module",
+          "src": "/assets/index-Ss3YB8Af.js",
+          "textHead": ""
+        }
+      ],
+      "modulePreloadLinks": [],
+      "stylesheets": [
+        "/assets/index-DoFeXOom.css"
+      ],
+      "errors": [],
+      "fetches": [
+        {
+          "url": "/auth/session",
+          "method": "GET",
+          "credentials": "include",
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "url": "/api/shell/bootstrap",
+          "method": "GET",
+          "credentials": "include",
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "url": "/api/shell/bootstrap",
+          "method": "GET",
+          "credentials": "include",
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "url": "/api/desktop/state",
+          "method": "GET",
+          "credentials": "include",
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "url": "/api/vtext/documents/[redacted-uuid]",
+          "method": "GET",
+          "credentials": "include",
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "url": "/api/vtext/documents/[redacted-uuid]",
+          "method": "GET",
+          "credentials": "include",
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "url": "/api/vtext/documents/[redacted-uuid]/revisions",
+          "method": "GET",
+          "credentials": "include",
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "url": "/api/vtext/documents/[redacted-uuid]/revisions",
+          "method": "GET",
+          "credentials": "include",
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "url": "/api/vtext/revisions/[redacted-uuid]",
+          "method": "GET",
+          "credentials": "include",
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "url": "/api/vtext/revisions/[redacted-uuid]",
+          "method": "GET",
+          "credentials": "include",
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "url": "/api/vtext/documents/[redacted-uuid]/manifest",
+          "method": "POST",
+          "credentials": "include",
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "url": "/api/vtext/documents/[redacted-uuid]/manifest",
+          "method": "POST",
+          "credentials": "include",
+          "status": 200,
+          "ok": true,
+          "error": ""
+        }
+      ],
+      "resources": [],
+      "appMounted": true,
+      "note": "Passing staging QA requires product UI, not merely a non-empty loading shell.",
+      "request_count": 3,
+      "response_count": 3,
+      "exception_count": 0,
+      "exceptions": [],
+      "request_urls": [
+        "https://draft.choir-ip.com/",
+        "https://draft.choir-ip.com/assets/index-DoFeXOom.css",
+        "https://draft.choir-ip.com/assets/index-Ss3YB8Af.js"
+      ],
+      "responses": [
+        {
+          "url": "https://draft.choir-ip.com/",
+          "status": 200,
+          "mimeType": "text/html; charset=utf-8"
+        },
+        {
+          "url": "https://draft.choir-ip.com/assets/index-DoFeXOom.css",
+          "status": 200,
+          "mimeType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "https://draft.choir-ip.com/assets/index-Ss3YB8Af.js",
+          "status": 200,
+          "mimeType": ""
+        }
+      ]
+    },
+    {
+      "name": "draft_prompt_bar_vtext_flow_server",
+      "status": "pass",
+      "version": {
+        "Browser": "Obscura/0.1.0",
+        "Protocol-Version": "1.3",
+        "User-Agent": "Obscura/0.1.0 (Headless Browser)",
+        "V8-Version": "N/A",
+        "WebKit-Version": "N/A",
+        "webSocketDebuggerUrl": "ws://127.0.0.1:23513/devtools/browser"
+      },
+      "logPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/obscura-product-flow.log",
+      "note": "Product flow runs in an isolated Obscura process because repeated Vite module evaluation can panic the current Obscura runtime."
+    },
+    {
+      "name": "draft_prompt_bar_vtext_flow",
+      "status": "pass",
+      "marker": "OBSCURA_PROMPT_BAR_1778393511399",
+      "prompt": "Draft a short VText note that preserves the marker OBSCURA_PROMPT_BAR_1778393511399.",
+      "state": {
+        "marker": "OBSCURA_PROMPT_BAR_1778393511399",
+        "prompt": "Draft a short VText note that preserves the marker OBSCURA_PROMPT_BAR_1778393511399.",
+        "fetches": [
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar",
+            "path": "/api/prompt-bar",
+            "method": "POST",
+            "status": 202,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "pending",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "status_url": "/api/prompt-bar/submissions/[redacted-uuid]"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:54.026Z",
+              "decision": {
+                "action": "open_app",
+                "app": "vtext",
+                "title": "Draft a short VText note that preserves the marker",
+                "seed_prompt": "Draft a short VText note that preserves the marker OBSCURA_PROMPT_BAR_1778393511399.",
+                "initial_content": "A short note preserving the requested marker:\n\nOBSCURA_PROMPT_BAR_1778393511399\n\nThis marker is retained exactly as provided for future reference or downstream use.",
+                "create_initial_version": true,
+                "doc_id": "[redacted-uuid]",
+                "user_revision_id": "[redacted-uuid]",
+                "framing_revision_id": "[redacted-uuid]",
+                "initial_revision_id": "[redacted-uuid]",
+                "initial_loop_id": "[redacted-uuid]"
+              }
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/vtext/documents/[redacted-uuid]",
+            "path": "/api/vtext/documents/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/vtext/documents/[redacted-uuid]",
+            "path": "/api/vtext/documents/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/vtext/documents/[redacted-uuid]",
+            "path": "/api/vtext/documents/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/desktop/state",
+            "path": "/api/desktop/state",
+            "method": "PUT",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/vtext/documents/[redacted-uuid]/revisions",
+            "path": "/api/vtext/documents/[redacted-uuid]/revisions",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/vtext/documents/[redacted-uuid]/revisions",
+            "path": "/api/vtext/documents/[redacted-uuid]/revisions",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/vtext/documents/[redacted-uuid]/revisions",
+            "path": "/api/vtext/documents/[redacted-uuid]/revisions",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/vtext/revisions/[redacted-uuid]",
+            "path": "/api/vtext/revisions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/vtext/revisions/[redacted-uuid]",
+            "path": "/api/vtext/revisions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/vtext/revisions/[redacted-uuid]",
+            "path": "/api/vtext/revisions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/vtext/documents/[redacted-uuid]/manifest",
+            "path": "/api/vtext/documents/[redacted-uuid]/manifest",
+            "method": "POST",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/vtext/documents/[redacted-uuid]/manifest",
+            "path": "/api/vtext/documents/[redacted-uuid]/manifest",
+            "method": "POST",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/vtext/documents/[redacted-uuid]/manifest",
+            "path": "/api/vtext/documents/[redacted-uuid]/manifest",
+            "method": "POST",
+            "status": 200,
+            "ok": true,
+            "body": null,
+            "error": ""
+          }
+        ],
+        "error": "",
+        "started": true,
+        "promptReadyState": {
+          "hasPromptInput": true,
+          "hasDesktop": true,
+          "readyState": "complete",
+          "bodyText": "\n    📁 Files  🌐 Browser  💻 Terminal  ⚙️ Settings  📝 VText  🔎 Trace   Draft a short VText note that preserves the marker — ☐ ✕ v1 < > Latest Read Edit Revise A short note preserving the requested marker:\n\nOBSCURA_PROMPT_BAR_1778393323746\n\nThis note intentionally keeps the marker intact for reference, continuity, or downstream use.   Document loaded   Draft a short VText note that preserves the marker — ☐ ✕ v1 < > Latest Read Edit Revise # Product Visual Note\n\nThis short note preserves the re",
+          "bottomBarHTML": "<div class=\"bottom-bar svelte-9radqw\" data-bottom-bar=\"\"><div class=\"bar-left svelte-9radqw\"><button class=\"show-desktop-btn svelte-9radqw\" data-show-desktop-btn=\"\" aria-label=\"Show Desktop\" title=\"Show Desktop\"><span class=\"show-desktop-icon\">⊞</span></button>  <div class=\"minimized-indicators svelte-9radqw\"></div></div> <div class=\"bar-center svelte-9radqw\"><div class=\"prompt-bar svelte-9radqw\"><input type=\"text\" class=\"prompt-input svelte-9radqw\" data-prompt-input=\"\" placeholder=\"Ask anything...\" aria-label=\"Prompt input\"></div></div> <div class=\"bar-right svelte-9radqw\"><div class=\"connection-status svelte-9radqw\" data-connection-status=\"\" data-desktop-live-status=\"\" data-shell-live-status=\"\" aria-live=\"polite\" aria-label=\"Connection status: Disconnected\"><span class=\"status-dot svelte-9radqw\" style=\"background: #fbbf24; animation: pulse 1.5s infinite;\"></span> <span class=\"status-text svelte-9radqw\">Disconnected</span></div></div></div>",
+          "authSeed": {
+            "cookieCount": 2
+          },
+          "authRefresh": null
+        },
+        "submissionId": "[redacted-uuid]",
+        "decision": {
+          "action": "open_app",
+          "app": "vtext",
+          "title": "Draft a short VText note that preserves the marker",
+          "seed_prompt": "Draft a short VText note that preserves the marker OBSCURA_PROMPT_BAR_1778393511399.",
+          "initial_content": "A short note preserving the requested marker:\n\nOBSCURA_PROMPT_BAR_1778393511399\n\nThis marker is retained exactly as provided for future reference or downstream use.",
+          "create_initial_version": true,
+          "doc_id": "[redacted-uuid]",
+          "user_revision_id": "[redacted-uuid]",
+          "framing_revision_id": "[redacted-uuid]",
+          "initial_revision_id": "[redacted-uuid]",
+          "initial_loop_id": "[redacted-uuid]"
+        },
+        "vtextCount": 3,
+        "editorText": "A short note preserving the requested marker:\n\nOBSCURA_PROMPT_BAR_1778393511399\n\nThis marker is retained exactly as provided for future reference or downstream use.",
+        "editorTexts": [
+          "A short note preserving the requested marker:\n\nOBSCURA_PROMPT_BAR_1778393323746\n\nThis note intentionally keeps the marker intact for reference, continuity, or downstream use.",
+          "# Product Visual Note\n\nThis short note preserves the required marker for downstream reference:\n\nOBSCURA_PRODUCT_VISUAL_1778393344072\n\nUse this marker as the stable identifier for the associated product visual context.",
+          "A short note preserving the requested marker:\n\nOBSCURA_PROMPT_BAR_1778393511399\n\nThis marker is retained exactly as provided for future reference or downstream use."
+        ],
+        "editorHasMarker": true,
+        "hasBadControlText": false,
+        "promptPosts": [
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar",
+            "path": "/api/prompt-bar",
+            "method": "POST",
+            "status": 202,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "pending",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "status_url": "/api/prompt-bar/submissions/[redacted-uuid]"
+            },
+            "error": ""
+          }
+        ],
+        "promptStatusPolls": [
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:51.461Z"
+            },
+            "error": ""
+          },
+          {
+            "url": "https://draft.choir-ip.com/api/prompt-bar/submissions/[redacted-uuid]",
+            "path": "/api/prompt-bar/submissions/[redacted-uuid]",
+            "method": "GET",
+            "status": 200,
+            "ok": true,
+            "body": {
+              "submission_id": "[redacted-uuid]",
+              "state": "running",
+              "created_at": "2026-05-10T06:11:51.453Z",
+              "updated_at": "2026-05-10T06:11:54.026Z",
+              "decision": {
+                "action": "open_app",
+                "app": "vtext",
+                "title": "Draft a short VText note that preserves the marker",
+                "seed_prompt": "Draft a short VText note that preserves the marker OBSCURA_PROMPT_BAR_1778393511399.",
+                "initial_content": "A short note preserving the requested marker:\n\nOBSCURA_PROMPT_BAR_1778393511399\n\nThis marker is retained exactly as provided for future reference or downstream use.",
+                "create_initial_version": true,
+                "doc_id": "[redacted-uuid]",
+                "user_revision_id": "[redacted-uuid]",
+                "framing_revision_id": "[redacted-uuid]",
+                "initial_revision_id": "[redacted-uuid]",
+                "initial_loop_id": "[redacted-uuid]"
+              }
+            },
+            "error": ""
+          }
+        ],
+        "windowTitle": "Draft a short VText note that preserves the marker — ☐ ✕"
+      },
+      "note": "Optional live product-flow probe; enable with --product-flow or OBSCURA_RUN_PRODUCT_FLOW=1."
+    },
+    {
+      "name": "playwright_cdp_connect_navigate_eval",
+      "status": "pass",
+      "title": "Example Domain"
+    },
+    {
+      "name": "playwright_cdp_screenshot",
+      "status": "pass",
+      "screenshotPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/playwright-over-obscura-screenshot.png",
+      "bytes": 38088
+    },
+    {
+      "name": "playwright_cdp_video_nonblank",
+      "status": "pass",
+      "videoPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/playwright-over-obscura-video/[redacted-email]",
+      "bytes": 19652,
+      "frame": {
+        "ok": true,
+        "bytes": 921600,
+        "avg": 109.56460503472222,
+        "min": 0,
+        "max": 255,
+        "uniqueSample": 221,
+        "visuallyNonBlank": true
+      }
+    },
+    {
+      "name": "cdp_serve_user_agent_stealth_server",
+      "status": "pass",
+      "version": {
+        "Browser": "Obscura/0.1.0",
+        "Protocol-Version": "1.3",
+        "User-Agent": "Obscura/0.1.0 (Headless Browser)",
+        "V8-Version": "N/A",
+        "WebKit-Version": "N/A",
+        "webSocketDebuggerUrl": "ws://127.0.0.1:23715/devtools/browser"
+      },
+      "logPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/obscura-serve-user-agent.log"
+    },
+    {
+      "name": "cdp_serve_user_agent_stealth_effect",
+      "status": "pass",
+      "body_head": "{\n  \"user-agent\": \"ChoirObscuraServe/1.0\"\n}\n"
+    },
+    {
+      "name": "cdp_browser_close_noop",
+      "status": "pass",
+      "result": {},
+      "note": "Browser.close is isolated because it may close or stall the connection in current Obscura."
+    }
+  ],
+  "summary": {
+    "pass": 71
+  },
+  "playwrightParity": {
+    "objective": "Duplicate full Playwright functionality with Obscura, including auth caching, screenshots, video, and broad surface coverage.",
+    "achieved": true,
+    "requirements": [
+      {
+        "id": "auth-caching",
+        "requirement": "Set up auth once and reuse it from Obscura.",
+        "status": "pass",
+        "evidence": "Playwright creates or supplies a passkey-backed storage state, then Obscura loads cookies through CDP and calls /auth/session.",
+        "checks": {
+          "playwright_create_auth_state": "missing",
+          "auth_state_file_present": "pass",
+          "cdp_auth_state_reuse": "pass"
+        },
+        "blocking": false
+      },
+      {
+        "id": "passkey-webauthn",
+        "requirement": "Replace Playwright WebAuthn virtual-authenticator passkey setup.",
+        "status": "pass",
+        "evidence": "Obscura would need the CDP WebAuthn domain or equivalent passkey automation.",
+        "checks": {
+          "cdp_webauthn_domain": "pass"
+        },
+        "blocking": false
+      },
+      {
+        "id": "screenshots",
+        "requirement": "Capture Playwright-equivalent screenshots.",
+        "status": "pass",
+        "evidence": "Playwright uses Page.captureScreenshot under CDP.",
+        "checks": {
+          "cdp_page_capture_screenshot": "pass",
+          "playwright_cdp_screenshot": "pass"
+        },
+        "blocking": false
+      },
+      {
+        "id": "video",
+        "requirement": "Capture Playwright-equivalent video or screencast evidence.",
+        "status": "pass",
+        "evidence": "A usable replacement needs Page.startScreencast or another nonblank visual video path.",
+        "checks": {
+          "cdp_screencast_video_primitives": "pass",
+          "playwright_cdp_video_nonblank": "pass"
+        },
+        "blocking": false
+      },
+      {
+        "id": "deployed-staging-qa",
+        "requirement": "QA draft.choir-ip.com product flows from Obscura.",
+        "status": "pass",
+        "evidence": "Hydration is necessary but not sufficient; full product QA also needs a prompt-bar to VText flow proof.",
+        "checks": {
+          "draft_spa_hydration": "pass",
+          "draft_prompt_bar_vtext_flow": "pass"
+        },
+        "blocking": false
+      },
+      {
+        "id": "browser-navigation-dom-runtime",
+        "requirement": "Cover core navigation, DOM, and Runtime automation.",
+        "status": "pass",
+        "evidence": "These are the minimum nonvisual browser-control primitives.",
+        "checks": {
+          "playwright_cdp_connect_navigate_eval": "pass",
+          "cdp_navigation_runtime_eval": "pass",
+          "cdp_page_get_frame_tree": "pass",
+          "cdp_page_layout_history_isolated_world_scripts": "pass",
+          "cdp_page_lifecycle_events": "pass",
+          "cdp_dom_query": "pass",
+          "cdp_dom_query_all_resolve_node": "pass",
+          "cdp_dom_describe_box_and_mutation_stubs": "pass",
+          "cdp_runtime_call_function_get_properties": "pass",
+          "cdp_runtime_release_exception_helpers": "pass",
+          "cdp_runtime_console_events": "pass",
+          "cdp_inline_module_script_execution": "pass",
+          "cdp_external_module_script_execution": "pass"
+        },
+        "blocking": false
+      },
+      {
+        "id": "browser-input",
+        "requirement": "Cover keyboard and mouse interaction.",
+        "status": "pass",
+        "evidence": "Playwright product tests depend on both typed input and pointer/click interaction.",
+        "checks": {
+          "cdp_input_dispatch_key_event": "pass",
+          "cdp_input_dispatch_mouse_event": "pass",
+          "cdp_input_touch_ignore_stubs": "pass"
+        },
+        "blocking": false
+      },
+      {
+        "id": "network-storage",
+        "requirement": "Cover network headers, cookies, and browser storage.",
+        "status": "pass",
+        "evidence": "This is needed for authenticated product testing and browser-app sessions.",
+        "checks": {
+          "cdp_cookie_set_get": "pass",
+          "cdp_network_cookie_helpers": "pass",
+          "cdp_network_headers_and_user_agent": "pass",
+          "cdp_network_request_response_events": "pass",
+          "cdp_storage_set_get_delete_cookies": "pass",
+          "cdp_web_storage_via_runtime": "pass"
+        },
+        "blocking": false
+      },
+      {
+        "id": "request-interception",
+        "requirement": "Cover request interception and response fulfillment.",
+        "status": "pass",
+        "evidence": "Playwright-style route mocking and controlled network tests require Fetch.requestPaused/fulfillRequest.",
+        "checks": {
+          "cdp_fetch_fulfill_request": "pass"
+        },
+        "blocking": false
+      },
+      {
+        "id": "cli-surface",
+        "requirement": "Cover Obscura CLI fetch/scrape surface.",
+        "status": "pass",
+        "evidence": "The CLI should support documented fetch/eval/text/links/selector/stealth/networkidle/scrape/output behavior.",
+        "checks": {
+          "cli_fetch_eval_title": "pass",
+          "cli_fetch_help": "pass",
+          "cli_fetch_dump_text_stdout": "pass",
+          "cli_fetch_dump_links": "pass",
+          "cli_fetch_selector_eval": "pass",
+          "cli_fetch_stealth_eval": "pass",
+          "cli_fetch_wait_until_networkidle0": "pass",
+          "cli_serve_help": "pass",
+          "cli_scrape_parallel_eval": "pass",
+          "cli_scrape_help": "pass",
+          "cli_fetch_output_file_flag": "pass",
+          "cli_fetch_output_short_flag": "pass",
+          "cli_fetch_user_agent_flag": "pass",
+          "cli_global_user_agent_applies_to_fetch": "pass",
+          "cli_serve_obey_robots_flag": "pass"
+        },
+        "blocking": false
+      },
+      {
+        "id": "cdp-surface-inventory",
+        "requirement": "Inventory the Obscura CDP/HTTP surface.",
+        "status": "pass",
+        "evidence": "The audit records /json/version, /json/list, /json/protocol, and method-level probes.",
+        "checks": {
+          "cdp_json_version": "pass",
+          "cdp_http_json_list": "pass",
+          "cdp_http_json_protocol": "pass",
+          "cdp_schema_get_domains": "pass",
+          "cdp_noop_domains_enable": "pass",
+          "cdp_browser_close_noop": "pass",
+          "cdp_browser_window_download_methods": "pass",
+          "cdp_target_metadata_autodiscovery": "pass",
+          "cdp_accessibility_get_full_ax_tree": "pass",
+          "cdp_fetch_lifecycle_methods": "pass",
+          "cdp_page_print_to_pdf": "pass",
+          "cdp_private_localhost_navigation": "pass",
+          "cdp_serve_user_agent_stealth_server": "pass",
+          "cdp_serve_user_agent_stealth_effect": "pass"
+        },
+        "blocking": false
+      }
+    ],
+    "blockingRequirements": [],
+    "passedChecks": [
+      "auth_state_file_present",
+      "obscura_binary_present",
+      "cli_help",
+      "cli_fetch_help",
+      "cli_serve_help",
+      "cli_scrape_help",
+      "cli_fetch_eval_title",
+      "cli_fetch_dump_text_stdout",
+      "cli_fetch_output_file_flag",
+      "cli_fetch_output_short_flag",
+      "cli_fetch_user_agent_flag",
+      "cli_global_user_agent_applies_to_fetch",
+      "cli_serve_obey_robots_flag",
+      "cli_fetch_dump_links",
+      "cli_fetch_selector_eval",
+      "cli_fetch_stealth_eval",
+      "cli_fetch_wait_until_networkidle0",
+      "cli_scrape_parallel_eval",
+      "cdp_json_version",
+      "cdp_http_json_list",
+      "cdp_http_json_protocol",
+      "cdp_browser_get_version",
+      "cdp_browser_window_download_methods",
+      "cdp_target_get_targets",
+      "cdp_target_metadata_autodiscovery",
+      "cdp_target_browser_context_create_dispose",
+      "cdp_schema_get_domains",
+      "cdp_noop_domains_enable",
+      "cdp_navigation_runtime_eval",
+      "cdp_network_request_response_events",
+      "cdp_runtime_console_events",
+      "cdp_inline_module_script_execution",
+      "cdp_external_module_script_execution",
+      "cdp_accessibility_get_full_ax_tree",
+      "cdp_page_get_frame_tree",
+      "cdp_page_layout_history_isolated_world_scripts",
+      "cdp_page_lifecycle_events",
+      "cdp_page_add_script_on_new_document",
+      "cdp_dom_query",
+      "cdp_dom_query_all_resolve_node",
+      "cdp_runtime_call_function_get_properties",
+      "cdp_runtime_add_binding",
+      "cdp_runtime_release_exception_helpers",
+      "cdp_dom_describe_box_and_mutation_stubs",
+      "cdp_cookie_set_get",
+      "cdp_network_cookie_helpers",
+      "cdp_network_headers_and_user_agent",
+      "cdp_storage_set_get_delete_cookies",
+      "cdp_fetch_fulfill_request",
+      "cdp_fetch_lifecycle_methods",
+      "cdp_form_submit_redirect_cookie_flow",
+      "cdp_lp_get_markdown",
+      "cdp_page_print_to_pdf",
+      "cdp_page_capture_screenshot",
+      "cdp_screencast_video_primitives",
+      "cdp_input_dispatch_key_event",
+      "cdp_input_dispatch_mouse_event",
+      "cdp_input_touch_ignore_stubs",
+      "cdp_web_storage_via_runtime",
+      "cdp_private_localhost_navigation",
+      "cdp_webauthn_domain",
+      "cdp_auth_state_reuse",
+      "draft_spa_hydration",
+      "draft_prompt_bar_vtext_flow_server",
+      "draft_prompt_bar_vtext_flow",
+      "playwright_cdp_connect_navigate_eval",
+      "playwright_cdp_screenshot",
+      "playwright_cdp_video_nonblank",
+      "cdp_serve_user_agent_stealth_server",
+      "cdp_serve_user_agent_stealth_effect",
+      "cdp_browser_close_noop"
+    ],
+    "failedChecks": []
+  },
+  "success": true
+}

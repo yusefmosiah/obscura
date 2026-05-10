@@ -1,0 +1,73 @@
+{
+  "objective": "Use Obscura to drive the deployed prompt-bar/VText flow, export the actual product DOM, and create fallback visual artifacts from that state.",
+  "baseURL": "https://draft.choir-ip.com",
+  "obscuraPath": "/tmp/obscura-source/target/release/obscura",
+  "authState": "[redacted-auth-state-path]",
+  "outDir": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge",
+  "htmlPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge/obscura-product-dom.html",
+  "screenshotPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge/product-visual-bridge.png",
+  "videoPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge/product-visual-bridge-video/[redacted-email]",
+  "startedAt": "2026-05-10T06:12:09.410Z",
+  "finishedAt": "2026-05-10T06:13:08.980Z",
+  "elapsedMs": 59570,
+  "nativeObscuraVisual": false,
+  "externalRenderer": "playwright-chromium",
+  "bridgeUsable": true,
+  "notAFullPlaywrightReplacement": true,
+  "limitations": [
+    "Obscura drives the authenticated product flow and exports DOM state.",
+    "Playwright Chromium renders the exported static DOM for screenshot/video artifacts.",
+    "The video is fallback visual evidence, not native Page.startScreencast output from Obscura."
+  ],
+  "productState": {
+    "marker": "OBSCURA_PRODUCT_VISUAL_1778393584359",
+    "promptStatus": 202,
+    "vtextCount": 1,
+    "editorHasMarker": true,
+    "editorTextHead": "# Product Visual Note\n\nThis short note preserves the required marker: OBSCURA_PRODUCT_VISUAL_1778393584359.\n\nUse this marker as a stable reference point for the associated product visual, ensuring it remains intact across edits, exports, and downstream documentation."
+  },
+  "checks": [
+    {
+      "name": "auth_state_ready",
+      "ok": true,
+      "command": "/Users/wiz/.nvm/versions/node/v22.14.0/bin/node scripts/setup-auth-state.mjs --base-url https://draft.choir-ip.com --out [redacted-auth-state-path]",
+      "exitCode": 0,
+      "error": "",
+      "stdoutTail": "{\n  \"ok\": true,\n  \"reused\": false,\n  \"baseURL\": \"https://draft.choir-ip.com\",\n  \"statePath\": \"[redacted-auth-state-path]\",\n  \"metaPath\": \"[redacted-auth-state-path]\",\n  \"email\": \"[redacted-email]\",\n  \"user\": {\n    \"id\": \"[redacted-uuid]\",\n    \"email\": \"[redacted-email]\",\n    \"created_at\": \"2026-05-10T06:12:11Z\"\n  }\n}\n",
+      "stderrTail": "",
+      "status": "pass"
+    },
+    {
+      "name": "obscura_product_flow_exported_dom",
+      "marker": "OBSCURA_PRODUCT_VISUAL_1778393584359",
+      "promptStatus": 202,
+      "vtextCount": 1,
+      "editorHasMarker": true,
+      "htmlBytes": 6329,
+      "error": "",
+      "status": "pass"
+    },
+    {
+      "name": "external_renderer_screenshot_created",
+      "renderer": "playwright-chromium",
+      "screenshotPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge/product-visual-bridge.png",
+      "bytes": 38051,
+      "status": "pass"
+    },
+    {
+      "name": "external_renderer_video_created",
+      "renderer": "playwright-chromium",
+      "videoPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge/product-visual-bridge-video/[redacted-email]",
+      "bytes": 55018,
+      "frame": {
+        "ok": true,
+        "min": 0,
+        "max": 255,
+        "avg": 238.0034038880814,
+        "visuallyNonBlank": true
+      },
+      "note": "Fallback video from externally rendered Obscura-exported product DOM. This is not native Obscura screencast parity.",
+      "status": "pass"
+    }
+  ]
+}

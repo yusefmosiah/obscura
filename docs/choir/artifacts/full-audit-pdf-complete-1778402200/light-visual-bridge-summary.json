@@ -1,0 +1,80 @@
+{
+  "objective": "Probe whether Obscura-acquired DOM can be rendered to screenshot/video without Playwright or a full browser renderer.",
+  "obscuraPath": "/tmp/obscura-source/target/release/obscura",
+  "url": "https://example.com",
+  "outDir": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge",
+  "htmlPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/obscura-dom.html",
+  "pdfPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/weasyprint-render.pdf",
+  "screenshotPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/weasyprint-render.png",
+  "videoPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/weasyprint-render.webm",
+  "startedAt": "2026-05-10T06:12:06.160Z",
+  "finishedAt": "2026-05-10T06:12:09.154Z",
+  "elapsedMs": 2994,
+  "nativeObscuraVisual": false,
+  "externalRenderer": "weasyprint-imagemagick-ffmpeg",
+  "bridgeUsable": true,
+  "notAFullPlaywrightReplacement": true,
+  "limitations": [
+    "No browser JS runs after Obscura DOM extraction.",
+    "CSS/layout fidelity is WeasyPrint fidelity, not Chromium/WebKit fidelity.",
+    "Video is a static artifact generated from the rendered page image, not a live interaction recording."
+  ],
+  "checks": [
+    {
+      "name": "weasyprint_available",
+      "status": "pass",
+      "command": "weasyprint"
+    },
+    {
+      "name": "magick_available",
+      "status": "pass",
+      "command": "magick"
+    },
+    {
+      "name": "ffmpeg_available",
+      "status": "pass",
+      "command": "ffmpeg"
+    },
+    {
+      "name": "obscura_dom_extracted",
+      "status": "pass",
+      "url": "https://example.com",
+      "exitCode": 0,
+      "error": null,
+      "stdoutHead": "<html lang=\"en\"><head><title>Example Domain</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style></head><body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.</p><p><a href=\"https://iana.org/domains/example\">Learn more</a></p></div>\n<",
+      "stderrHead": "",
+      "htmlBytes": 513
+    },
+    {
+      "name": "weasyprint_pdf_created",
+      "status": "pass",
+      "renderer": "weasyprint",
+      "pdfPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/weasyprint-render.pdf",
+      "bytes": 6783,
+      "stderrHead": "WARNING: Ignored `width:60vw` at 1:22, invalid value.\nWARNING: Ignored `margin:15vh auto` at 1:33, invalid value.\n"
+    },
+    {
+      "name": "imagemagick_screenshot_created",
+      "status": "pass",
+      "renderer": "imagemagick",
+      "screenshotPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/weasyprint-render.png",
+      "bytes": 28488,
+      "stderrHead": ""
+    },
+    {
+      "name": "ffmpeg_static_video_created",
+      "status": "pass",
+      "renderer": "ffmpeg",
+      "videoPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/weasyprint-render.webm",
+      "bytes": 23873,
+      "frame": {
+        "ok": true,
+        "min": 0,
+        "max": 255,
+        "avg": 240.90437784571938,
+        "visuallyNonBlank": true
+      },
+      "note": "Static-video fallback from the rendered page image. This is useful artifact evidence, not interaction recording parity."
+    }
+  ]
+}

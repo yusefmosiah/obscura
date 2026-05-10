@@ -300,4 +300,8 @@ Likely not aligned if framed incorrectly:
 
 ## Recommended Next Step
 
-Keep this branch pushed as a preservation branch on the fork. Review the diff manually before opening any PRs. If upstream engagement looks worthwhile, open issues first or submit the least controversial PRs first: CLI parity, external module execution, and console events.
+Keep this branch pushed as a preservation branch on the fork. Review the diff manually before opening any PRs.
+
+Choir-specific audit material migrated after the initial preservation commit now lives under `docs/choir/` and `scripts/choir/`. Treat that material as evidence for review and future PR decomposition, not as proposed upstream source.
+
+If upstream engagement looks worthwhile, open issues first or submit the least controversial PRs first: CLI parity, external module execution, and console events.

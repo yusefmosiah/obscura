@@ -1,0 +1,173 @@
+{
+  "objective": "Full Obscura audit: auth caching, Playwright-parity probes, product flow, source surface, visual primitives, and aggregate completion gate.",
+  "baseURL": "https://draft.choir-ip.com",
+  "obscura": "/tmp/obscura-source/target/release/obscura",
+  "sourceRoot": "/tmp/obscura-source",
+  "linuxSmoke": null,
+  "authState": "[redacted-auth-state-path]",
+  "outDir": "/tmp/obscura-test/full-audit-pdf-complete-1778402200",
+  "startedAt": "2026-05-10T06:10:42.924Z",
+  "steps": [
+    {
+      "name": "auth_setup",
+      "command": [
+        "/Users/wiz/.nvm/versions/node/v22.14.0/bin/node",
+        "scripts/setup-auth-state.mjs",
+        "--base-url",
+        "https://draft.choir-ip.com",
+        "--out",
+        "[redacted-auth-state-path]"
+      ],
+      "status": 0,
+      "stdoutPath": null,
+      "error": null
+    },
+    {
+      "name": "capability_audit",
+      "command": [
+        "/Users/wiz/.nvm/versions/node/v22.14.0/bin/node",
+        "scripts/obscura-capability-audit.mjs",
+        "--obscura",
+        "/tmp/obscura-source/target/release/obscura",
+        "--base-url",
+        "https://draft.choir-ip.com",
+        "--auth-state",
+        "[redacted-auth-state-path]",
+        "--out",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit",
+        "--product-flow"
+      ],
+      "status": 0,
+      "stdoutPath": null,
+      "error": null
+    },
+    {
+      "name": "source_inventory",
+      "command": [
+        "/Users/wiz/.nvm/versions/node/v22.14.0/bin/node",
+        "scripts/obscura-source-inventory.mjs",
+        "--source",
+        "/tmp/obscura-source",
+        "--summary",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/summary.json",
+        "--out",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/source-inventory"
+      ],
+      "status": 0,
+      "stdoutPath": null,
+      "error": null
+    },
+    {
+      "name": "visual_primitives",
+      "command": [
+        "/Users/wiz/.nvm/versions/node/v22.14.0/bin/node",
+        "scripts/obscura-visual-primitives-probe.mjs",
+        "--obscura",
+        "/tmp/obscura-source/target/release/obscura",
+        "--out",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/visual-primitives"
+      ],
+      "status": 1,
+      "stdoutPath": null,
+      "error": null
+    },
+    {
+      "name": "external_visual_bridge",
+      "command": [
+        "/Users/wiz/.nvm/versions/node/v22.14.0/bin/node",
+        "scripts/obscura-external-visual-bridge-probe.mjs",
+        "--obscura",
+        "/tmp/obscura-source/target/release/obscura",
+        "--url",
+        "https://example.com",
+        "--out",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge"
+      ],
+      "status": 0,
+      "stdoutPath": null,
+      "error": null
+    },
+    {
+      "name": "light_visual_bridge",
+      "command": [
+        "/Users/wiz/.nvm/versions/node/v22.14.0/bin/node",
+        "scripts/obscura-light-visual-bridge-probe.mjs",
+        "--obscura",
+        "/tmp/obscura-source/target/release/obscura",
+        "--url",
+        "https://example.com",
+        "--out",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge"
+      ],
+      "status": 0,
+      "stdoutPath": null,
+      "error": null
+    },
+    {
+      "name": "product_visual_bridge",
+      "command": [
+        "/Users/wiz/.nvm/versions/node/v22.14.0/bin/node",
+        "scripts/obscura-product-visual-bridge-probe.mjs",
+        "--obscura",
+        "/tmp/obscura-source/target/release/obscura",
+        "--base-url",
+        "https://draft.choir-ip.com",
+        "--auth-state",
+        "[redacted-auth-state-path]",
+        "--out",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge"
+      ],
+      "status": 0,
+      "stdoutPath": null,
+      "error": null
+    },
+    {
+      "name": "completion_audit",
+      "command": [
+        "/Users/wiz/.nvm/versions/node/v22.14.0/bin/node",
+        "scripts/obscura-completion-audit.mjs",
+        "--parity-summary",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/summary.json",
+        "--source-inventory",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/source-inventory/summary.json",
+        "--obscura-source",
+        "/tmp/obscura-source",
+        "--visual-primitives",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/visual-primitives/summary.json",
+        "--external-visual-bridge",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge/summary.json",
+        "--light-visual-bridge",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/summary.json",
+        "--product-visual-bridge",
+        "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge/summary.json"
+      ],
+      "status": 0,
+      "stdoutPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/completion-audit/summary.json",
+      "error": null
+    }
+  ],
+  "artifacts": {
+    "paritySummary": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/summary.json",
+    "sourceInventory": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/source-inventory/summary.json",
+    "visualPrimitives": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/visual-primitives/summary.json",
+    "externalVisualBridge": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge/summary.json",
+    "lightVisualBridge": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/light-visual-bridge/summary.json",
+    "productVisualBridge": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/product-visual-bridge/summary.json",
+    "completionAudit": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/completion-audit/summary.json",
+    "manifest": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/manifest.json"
+  },
+  "finishedAt": "2026-05-10T06:13:09.025Z",
+  "exitCodes": {
+    "setupStatus": 0,
+    "auditStatus": 0,
+    "sourceInventoryStatus": 0,
+    "visualPrimitivesStatus": 1,
+    "externalVisualBridgeStatus": 0,
+    "lightVisualBridgeStatus": 0,
+    "productVisualBridgeStatus": 0,
+    "completionStatus": 0
+  },
+  "ok": true,
+  "expectedCurrentBlockers": [],
+  "blockingItems": []
+}

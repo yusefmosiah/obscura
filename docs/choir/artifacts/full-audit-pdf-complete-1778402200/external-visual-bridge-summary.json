@@ -1,0 +1,49 @@
+{
+  "objective": "Probe whether Obscura-acquired DOM can be handed to an external renderer for honest visual artifacts.",
+  "obscuraPath": "/tmp/obscura-source/target/release/obscura",
+  "url": "https://example.com",
+  "outDir": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge",
+  "htmlPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge/obscura-dom.html",
+  "screenshotPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge/external-renderer-screenshot.png",
+  "videoPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge/external-renderer-video/[redacted-email]",
+  "startedAt": "2026-05-10T06:12:04.571Z",
+  "finishedAt": "2026-05-10T06:12:06.124Z",
+  "elapsedMs": 1553,
+  "nativeObscuraVisual": false,
+  "externalRenderer": "playwright-chromium",
+  "bridgeUsable": true,
+  "notAFullPlaywrightReplacement": true,
+  "checks": [
+    {
+      "name": "obscura_dom_extracted",
+      "status": "pass",
+      "url": "https://example.com",
+      "exitCode": 0,
+      "error": null,
+      "stdoutHead": "<html lang=\"en\"><head><title>Example Domain</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style></head><body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.</p><p><a href=\"https://iana.org/domains/example\">Learn more</a></p></div>\n<",
+      "stderrHead": "",
+      "htmlBytes": 513
+    },
+    {
+      "name": "external_renderer_screenshot_created",
+      "status": "pass",
+      "renderer": "playwright-chromium",
+      "screenshotPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge/external-renderer-screenshot.png",
+      "bytes": 24341
+    },
+    {
+      "name": "external_renderer_video_created",
+      "status": "pass",
+      "renderer": "playwright-chromium",
+      "videoPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/external-visual-bridge/external-renderer-video/[redacted-email]",
+      "bytes": 53228,
+      "frame": {
+        "ok": true,
+        "min": 0,
+        "max": 255,
+        "avg": 228.92531358506943,
+        "visuallyNonBlank": true
+      }
+    }
+  ]
+}

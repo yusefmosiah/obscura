@@ -1,0 +1,54 @@
+diff --git a/crates/obscura-cli/src/main.rs b/crates/obscura-cli/src/main.rs
+--- a/crates/obscura-cli/src/main.rs
++++ b/crates/obscura-cli/src/main.rs
+@@ -44,6 +44,9 @@ enum Command {
+         #[arg(long)]
+         stealth: bool,
+ 
++        #[arg(long)]
++        obey_robots: bool,
++
+         #[arg(long, default_value_t = 1)]
+         workers: u16,
+     },
+@@ -153,15 +156,21 @@ async fn main() -> anyhow::Result<()> {
+         .with_writer(std::io::stderr)
+         .init();
+ 
++    let global_user_agent = args.user_agent.clone();
++
+     match args.command {
+-        Some(Command::Serve { port, proxy, user_agent, stealth, workers }) => {
++        Some(Command::Serve { port, proxy, user_agent, stealth, obey_robots, workers }) => {
+             print_banner(port);
+             if let Some(ref proxy) = proxy {
+                 tracing::info!("Using proxy: {}", proxy);
+             }
+-            if let Some(ref ua) = user_agent {
++            let effective_user_agent = user_agent.or(global_user_agent);
++            if let Some(ref ua) = effective_user_agent {
+                 tracing::info!("User-Agent: {}", ua);
+             }
++            if obey_robots || args.obey_robots {
++                tracing::info!("Robots.txt compliance flag accepted");
++            }
+             if stealth {
+                 #[cfg(feature = "stealth")]
+                 tracing::info!(
+@@ -173,13 +182,13 @@ async fn main() -> anyhow::Result<()> {
+ 
+             if workers > 1 {
+                 tracing::info!("{} worker processes", workers);
+-                run_multi_worker_serve(port, workers, proxy, stealth, user_agent).await?;
++                run_multi_worker_serve(port, workers, proxy, stealth, effective_user_agent).await?;
+             } else {
+-                obscura_cdp::start_with_full_options(port, proxy, stealth, user_agent).await?;
++                obscura_cdp::start_with_full_options(port, proxy, stealth, effective_user_agent).await?;
+             }
+         }
+         Some(Command::Fetch { url, dump, selector, wait, timeout, wait_until, user_agent, stealth, eval, output, quiet }) => {
+-            run_fetch(&url, dump, selector, wait, timeout, &wait_until, user_agent, stealth, eval, output, quiet).await?;
++            run_fetch(&url, dump, selector, wait, timeout, &wait_until, user_agent.or(global_user_agent), stealth, eval, output, quiet).await?;
+         }
+         Some(Command::Scrape { urls, eval, concurrency, format, timeout, quiet }) => {
+             run_parallel_scrape(urls, eval, concurrency.get(), &format, timeout, quiet).await?;

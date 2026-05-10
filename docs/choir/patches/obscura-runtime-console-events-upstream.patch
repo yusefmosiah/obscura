@@ -1,0 +1,168 @@
+diff --git a/crates/obscura-browser/src/page.rs b/crates/obscura-browser/src/page.rs
+--- a/crates/obscura-browser/src/page.rs
++++ b/crates/obscura-browser/src/page.rs
+@@ -837,6 +837,13 @@ impl Page {
+         }
+     }
+ 
++    pub fn take_console_messages(&self) -> Vec<obscura_js::ops::ConsoleMessage> {
++        self.js
++            .as_ref()
++            .map(|js| js.take_console_messages())
++            .unwrap_or_default()
++    }
++
+     pub fn set_intercept_tx(&mut self, tx: tokio::sync::mpsc::UnboundedSender<obscura_js::ops::InterceptedRequest>) {
+         self.intercept_tx = Some(tx.clone());
+         if let Some(js) = &self.js {
+diff --git a/crates/obscura-cdp/src/domains/runtime.rs b/crates/obscura-cdp/src/domains/runtime.rs
+--- a/crates/obscura-cdp/src/domains/runtime.rs
++++ b/crates/obscura-cdp/src/domains/runtime.rs
+@@ -1,7 +1,9 @@
++use obscura_js::ops::ConsoleMessage;
+ use obscura_js::runtime::RemoteObjectInfo;
+ use serde_json::{json, Value};
+ 
+ use crate::dispatch::CdpContext;
++use crate::types::CdpEvent;
+ 
+ pub async fn handle(
+     method: &str,
+@@ -42,10 +44,15 @@ pub async fn handle(
+                 .and_then(|v| v.as_bool())
+                 .unwrap_or(false);
+ 
+-            let page = ctx
+-                .get_session_page_mut(session_id)
+-                .ok_or("No page")?;
+-            let info = page.evaluate_for_cdp(expression, return_by_value);
++            let (info, console_messages) = {
++                let page = ctx
++                    .get_session_page_mut(session_id)
++                    .ok_or("No page")?;
++                let info = page.evaluate_for_cdp(expression, return_by_value);
++                let console_messages = page.take_console_messages();
++                (info, console_messages)
++            };
++            enqueue_console_events(ctx, session_id, console_messages);
+ 
+             Ok(json!({ "result": remote_object_from_info(&info) }))
+         }
+@@ -69,11 +76,16 @@ pub async fn handle(
+                 .map(|a| a.to_vec())
+                 .unwrap_or_default();
+ 
+-            let page = ctx
+-                .get_session_page_mut(session_id)
+-                .ok_or("No page")?;
+-            let info =
+-                page.call_function_on_for_cdp(function_declaration, object_id, &arguments, return_by_value, await_promise).await;
++            let (info, console_messages) = {
++                let page = ctx
++                    .get_session_page_mut(session_id)
++                    .ok_or("No page")?;
++                let info =
++                    page.call_function_on_for_cdp(function_declaration, object_id, &arguments, return_by_value, await_promise).await;
++                let console_messages = page.take_console_messages();
++                (info, console_messages)
++            };
++            enqueue_console_events(ctx, session_id, console_messages);
+ 
+             Ok(json!({ "result": remote_object_from_info(&info) }))
+         }
+@@ -186,6 +198,33 @@ pub async fn handle(
+     }
+ }
+ 
++fn enqueue_console_events(
++    ctx: &mut CdpContext,
++    session_id: &Option<String>,
++    messages: Vec<ConsoleMessage>,
++) {
++    let timestamp = std::time::SystemTime::now()
++        .duration_since(std::time::UNIX_EPOCH)
++        .unwrap_or_default()
++        .as_secs_f64();
++
++    for message in messages {
++        ctx.pending_events.push(CdpEvent {
++            method: "Runtime.consoleAPICalled".to_string(),
++            params: json!({
++                "type": message.level,
++                "args": [{
++                    "type": "string",
++                    "value": message.message,
++                }],
++                "executionContextId": 1,
++                "timestamp": timestamp,
++            }),
++            session_id: session_id.clone(),
++        });
++    }
++}
++
+ fn remote_object_from_info(info: &RemoteObjectInfo) -> Value {
+     let mut obj = json!({ "type": info.js_type });
+ 
+diff --git a/crates/obscura-js/src/ops.rs b/crates/obscura-js/src/ops.rs
+--- a/crates/obscura-js/src/ops.rs
++++ b/crates/obscura-js/src/ops.rs
+@@ -49,6 +49,13 @@ pub struct ObscuraState {
+     pub intercept_tx: Option<tokio::sync::mpsc::UnboundedSender<InterceptedRequest>>,
+     pub intercept_counter: u64,
+     pub intercept_enabled: bool,
++    pub console_messages: Vec<ConsoleMessage>,
++}
++
++#[derive(Debug, Clone)]
++pub struct ConsoleMessage {
++    pub level: String,
++    pub message: String,
+ }
+ 
+ impl ObscuraState {
+@@ -64,6 +71,7 @@ impl ObscuraState {
+             intercept_tx: None,
+             intercept_counter: 0,
+             intercept_enabled: false,
++            console_messages: Vec::new(),
+         }
+     }
+ }
+@@ -273,7 +281,11 @@ fn op_dom(state: &OpState, #[string] cmd: String, #[string] arg1: String, #[stri
+ 
+ #[op2(fast)]
+ fn op_console_msg(state: &OpState, #[string] level: &str, #[string] msg: &str) {
+-    let _ = state;
++    let gs = state.borrow::<SharedState>().clone();
++    gs.borrow_mut().console_messages.push(ConsoleMessage {
++        level: level.to_string(),
++        message: msg.to_string(),
++    });
+     match level {
+         "warn" => tracing::warn!(target: "obscura::console", "{}", msg),
+         "error" => tracing::error!(target: "obscura::console", "{}", msg),
+diff --git a/crates/obscura-js/src/runtime.rs b/crates/obscura-js/src/runtime.rs
+--- a/crates/obscura-js/src/runtime.rs
++++ b/crates/obscura-js/src/runtime.rs
+@@ -6,7 +6,7 @@ use deno_core::{JsRuntime, RuntimeOptions};
+ use obscura_dom::DomTree;
+ 
+ use crate::module_loader::ObscuraModuleLoader;
+-use crate::ops::{build_extension, ObscuraState};
++use crate::ops::{build_extension, ConsoleMessage, ObscuraState};
+ 
+ static SNAPSHOT: &[u8] = include_bytes!(env!("OBSCURA_SNAPSHOT_PATH"));
+ 
+@@ -103,6 +103,11 @@ impl ObscuraJsRuntime {
+             format!("globalThis.__obscura_ua = '{}';", escaped),
+         );
+     }
++
++    pub fn take_console_messages(&self) -> Vec<ConsoleMessage> {
++        std::mem::take(&mut self.state.borrow_mut().console_messages)
++    }
++
+     pub fn evaluate(&mut self, expression: &str) -> Result<serde_json::Value, String> {
+         let wrapped = Self::wrap_expression(expression);
+         let result = self

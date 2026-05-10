@@ -1,0 +1,1057 @@
+{
+  "objective": "Inventory Obscura CDP source surface and compare it with Choir audit probes",
+  "sourceRoot": "/tmp/obscura-source",
+  "summaryPath": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/capability-audit/summary.json",
+  "outDir": "/tmp/obscura-test/full-audit-pdf-complete-1778402200/source-inventory",
+  "generatedAt": "2026-05-10T06:12:04.213Z",
+  "implementedMethodCount": 76,
+  "coveredMethodCount": 76,
+  "partialMethodCount": 0,
+  "uncoveredMethodCount": 0,
+  "surfaceFullyProbed": true,
+  "implementedDomains": [
+    "Accessibility",
+    "Browser",
+    "DOM",
+    "Fetch",
+    "Input",
+    "LP",
+    "Network",
+    "Page",
+    "Runtime",
+    "Storage",
+    "Target"
+  ],
+  "methods": [
+    {
+      "domain": "Accessibility",
+      "method": "Accessibility.enable",
+      "source": "crates/obscura-cdp/src/domains/accessibility.rs",
+      "line": 33,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_accessibility_get_full_ax_tree",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Accessibility",
+      "method": "Accessibility.getFullAXTree",
+      "source": "crates/obscura-cdp/src/domains/accessibility.rs",
+      "line": 34,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_accessibility_get_full_ax_tree",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Browser",
+      "method": "Browser.close",
+      "source": "crates/obscura-cdp/src/domains/browser.rs",
+      "line": 12,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_browser_close_noop",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Browser",
+      "method": "Browser.getVersion",
+      "source": "crates/obscura-cdp/src/domains/browser.rs",
+      "line": 5,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_browser_get_version",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Browser",
+      "method": "Browser.getWindowBounds",
+      "source": "crates/obscura-cdp/src/domains/browser.rs",
+      "line": 24,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_browser_window_download_methods",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Browser",
+      "method": "Browser.getWindowForTarget",
+      "source": "crates/obscura-cdp/src/domains/browser.rs",
+      "line": 13,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_browser_window_download_methods",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Browser",
+      "method": "Browser.setDownloadBehavior",
+      "source": "crates/obscura-cdp/src/domains/browser.rs",
+      "line": 23,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_browser_window_download_methods",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Browser",
+      "method": "Browser.setWindowBounds",
+      "source": "crates/obscura-cdp/src/domains/browser.rs",
+      "line": 31,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_browser_window_download_methods",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "DOM",
+      "method": "DOM.describeNode",
+      "source": "crates/obscura-cdp/src/domains/dom.rs",
+      "line": 68,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_dom_describe_box_and_mutation_stubs",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "DOM",
+      "method": "DOM.enable",
+      "source": "crates/obscura-cdp/src/domains/dom.rs",
+      "line": 13,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_dom_query",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "DOM",
+      "method": "DOM.getBoxModel",
+      "source": "crates/obscura-cdp/src/domains/dom.rs",
+      "line": 162,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_dom_describe_box_and_mutation_stubs",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "DOM",
+      "method": "DOM.getDocument",
+      "source": "crates/obscura-cdp/src/domains/dom.rs",
+      "line": 14,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_dom_query",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "DOM",
+      "method": "DOM.getOuterHTML",
+      "source": "crates/obscura-cdp/src/domains/dom.rs",
+      "line": 56,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_dom_query",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "DOM",
+      "method": "DOM.querySelector",
+      "source": "crates/obscura-cdp/src/domains/dom.rs",
+      "line": 23,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_dom_query",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "DOM",
+      "method": "DOM.querySelectorAll",
+      "source": "crates/obscura-cdp/src/domains/dom.rs",
+      "line": 40,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_dom_query_all_resolve_node",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "DOM",
+      "method": "DOM.removeNode",
+      "source": "crates/obscura-cdp/src/domains/dom.rs",
+      "line": 161,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_dom_describe_box_and_mutation_stubs",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "DOM",
+      "method": "DOM.resolveNode",
+      "source": "crates/obscura-cdp/src/domains/dom.rs",
+      "line": 95,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_dom_query_all_resolve_node",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "DOM",
+      "method": "DOM.setAttributeValue",
+      "source": "crates/obscura-cdp/src/domains/dom.rs",
+      "line": 160,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_dom_describe_box_and_mutation_stubs",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Fetch",
+      "method": "Fetch.continueRequest",
+      "source": "crates/obscura-cdp/src/domains/fetch.rs",
+      "line": 109,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_fetch_lifecycle_methods",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Fetch",
+      "method": "Fetch.disable",
+      "source": "crates/obscura-cdp/src/domains/fetch.rs",
+      "line": 92,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_fetch_lifecycle_methods",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Fetch",
+      "method": "Fetch.enable",
+      "source": "crates/obscura-cdp/src/domains/fetch.rs",
+      "line": 63,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_fetch_fulfill_request",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Fetch",
+      "method": "Fetch.failRequest",
+      "source": "crates/obscura-cdp/src/domains/fetch.rs",
+      "line": 172,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_fetch_lifecycle_methods",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Fetch",
+      "method": "Fetch.fulfillRequest",
+      "source": "crates/obscura-cdp/src/domains/fetch.rs",
+      "line": 134,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_fetch_fulfill_request",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Fetch",
+      "method": "Fetch.getResponseBody",
+      "source": "crates/obscura-cdp/src/domains/fetch.rs",
+      "line": 189,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_fetch_lifecycle_methods",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Input",
+      "method": "Input.dispatchKeyEvent",
+      "source": "crates/obscura-cdp/src/domains/input.rs",
+      "line": 67,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_input_dispatch_key_event",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Input",
+      "method": "Input.dispatchMouseEvent",
+      "source": "crates/obscura-cdp/src/domains/input.rs",
+      "line": 12,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_input_dispatch_mouse_event",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Input",
+      "method": "Input.dispatchTouchEvent",
+      "source": "crates/obscura-cdp/src/domains/input.rs",
+      "line": 157,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_input_touch_ignore_stubs",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Input",
+      "method": "Input.setIgnoreInputEvents",
+      "source": "crates/obscura-cdp/src/domains/input.rs",
+      "line": 158,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_input_touch_ignore_stubs",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "LP",
+      "method": "LP.getMarkdown",
+      "source": "crates/obscura-cdp/src/domains/lp.rs",
+      "line": 12,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_lp_get_markdown",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Network",
+      "method": "Network.clearBrowserCookies",
+      "source": "crates/obscura-cdp/src/domains/network.rs",
+      "line": 88,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_network_cookie_helpers",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Network",
+      "method": "Network.enable",
+      "source": "crates/obscura-cdp/src/domains/network.rs",
+      "line": 12,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_network_request_response_events",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Network",
+      "method": "Network.getCookies",
+      "source": "crates/obscura-cdp/src/domains/network.rs",
+      "line": 36,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_network_cookie_helpers",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Network",
+      "method": "Network.setCacheDisabled",
+      "source": "crates/obscura-cdp/src/domains/network.rs",
+      "line": 94,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_network_cookie_helpers",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Network",
+      "method": "Network.setCookies",
+      "source": "crates/obscura-cdp/src/domains/network.rs",
+      "line": 60,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_cookie_set_get",
+          "status": "pass"
+        },
+        {
+          "check": "cdp_storage_set_get_delete_cookies",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Network",
+      "method": "Network.setExtraHTTPHeaders",
+      "source": "crates/obscura-cdp/src/domains/network.rs",
+      "line": 13,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_network_headers_and_user_agent",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Network",
+      "method": "Network.setRequestInterception",
+      "source": "crates/obscura-cdp/src/domains/network.rs",
+      "line": 95,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_network_cookie_helpers",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Network",
+      "method": "Network.setUserAgentOverride",
+      "source": "crates/obscura-cdp/src/domains/network.rs",
+      "line": 26,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_network_headers_and_user_agent",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.addScriptToEvaluateOnNewDocument",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 297,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_page_add_script_on_new_document",
+          "status": "pass"
+        },
+        {
+          "check": "cdp_page_layout_history_isolated_world_scripts",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.captureScreenshot",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 374,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_page_capture_screenshot",
+          "status": "pass"
+        },
+        {
+          "check": "playwright_cdp_screenshot",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.createIsolatedWorld",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 250,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_page_layout_history_isolated_world_scripts",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.enable",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 17,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_navigation_runtime_eval",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.getFrameTree",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 231,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_page_get_frame_tree",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.getLayoutMetrics",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 316,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_page_layout_history_isolated_world_scripts",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.getNavigationHistory",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 355,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_page_layout_history_isolated_world_scripts",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.navigate",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 18,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_navigation_runtime_eval",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.printToPDF",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 370,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_page_print_to_pdf",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.removeScriptToEvaluateOnNewDocument",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 307,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_page_layout_history_isolated_world_scripts",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.screencastFrameAck",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 421,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "playwright_cdp_video_nonblank",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.setInterceptFileChooserDialog",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 315,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_page_layout_history_isolated_world_scripts",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.setLifecycleEventsEnabled",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 296,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_page_lifecycle_events",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.startScreencast",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 382,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_screencast_video_primitives",
+          "status": "pass"
+        },
+        {
+          "check": "playwright_cdp_video_nonblank",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Page",
+      "method": "Page.stopScreencast",
+      "source": "crates/obscura-cdp/src/domains/page.rs",
+      "line": 439,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_screencast_video_primitives",
+          "status": "pass"
+        },
+        {
+          "check": "playwright_cdp_video_nonblank",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Runtime",
+      "method": "Runtime.addBinding",
+      "source": "crates/obscura-cdp/src/domains/runtime.rs",
+      "line": 179,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_runtime_add_binding",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Runtime",
+      "method": "Runtime.callFunctionOn",
+      "source": "crates/obscura-cdp/src/domains/runtime.rs",
+      "line": 57,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_runtime_call_function_get_properties",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Runtime",
+      "method": "Runtime.discardConsoleEntries",
+      "source": "crates/obscura-cdp/src/domains/runtime.rs",
+      "line": 202,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_runtime_release_exception_helpers",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Runtime",
+      "method": "Runtime.enable",
+      "source": "crates/obscura-cdp/src/domains/runtime.rs",
+      "line": 15,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_navigation_runtime_eval",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Runtime",
+      "method": "Runtime.evaluate",
+      "source": "crates/obscura-cdp/src/domains/runtime.rs",
+      "line": 37,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_navigation_runtime_eval",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Runtime",
+      "method": "Runtime.getExceptionDetails",
+      "source": "crates/obscura-cdp/src/domains/runtime.rs",
+      "line": 201,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_runtime_release_exception_helpers",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Runtime",
+      "method": "Runtime.getProperties",
+      "source": "crates/obscura-cdp/src/domains/runtime.rs",
+      "line": 95,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_runtime_call_function_get_properties",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Runtime",
+      "method": "Runtime.releaseObject",
+      "source": "crates/obscura-cdp/src/domains/runtime.rs",
+      "line": 165,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_runtime_release_exception_helpers",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Runtime",
+      "method": "Runtime.releaseObjectGroup",
+      "source": "crates/obscura-cdp/src/domains/runtime.rs",
+      "line": 173,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_runtime_release_exception_helpers",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Runtime",
+      "method": "Runtime.runIfWaitingForDebugger",
+      "source": "crates/obscura-cdp/src/domains/runtime.rs",
+      "line": 200,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_runtime_release_exception_helpers",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Storage",
+      "method": "Storage.deleteCookies",
+      "source": "crates/obscura-cdp/src/domains/storage.rs",
+      "line": 96,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_storage_set_get_delete_cookies",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Storage",
+      "method": "Storage.getCookies",
+      "source": "crates/obscura-cdp/src/domains/storage.rs",
+      "line": 12,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_storage_set_get_delete_cookies",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Storage",
+      "method": "Storage.setCookies",
+      "source": "crates/obscura-cdp/src/domains/storage.rs",
+      "line": 36,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_storage_set_get_delete_cookies",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Target",
+      "method": "Target.attachToBrowserTarget",
+      "source": "crates/obscura-cdp/src/domains/target.rs",
+      "line": 110,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_target_metadata_autodiscovery",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Target",
+      "method": "Target.attachToTarget",
+      "source": "crates/obscura-cdp/src/domains/target.rs",
+      "line": 136,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_target_metadata_autodiscovery",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Target",
+      "method": "Target.closeTarget",
+      "source": "crates/obscura-cdp/src/domains/target.rs",
+      "line": 165,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_target_browser_context_create_dispose",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Target",
+      "method": "Target.createBrowserContext",
+      "source": "crates/obscura-cdp/src/domains/target.rs",
+      "line": 189,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_target_browser_context_create_dispose",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Target",
+      "method": "Target.createTarget",
+      "source": "crates/obscura-cdp/src/domains/target.rs",
+      "line": 56,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_target_browser_context_create_dispose",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Target",
+      "method": "Target.disposeBrowserContext",
+      "source": "crates/obscura-cdp/src/domains/target.rs",
+      "line": 193,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_target_browser_context_create_dispose",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Target",
+      "method": "Target.getBrowserContexts",
+      "source": "crates/obscura-cdp/src/domains/target.rs",
+      "line": 188,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_target_metadata_autodiscovery",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Target",
+      "method": "Target.getTargetInfo",
+      "source": "crates/obscura-cdp/src/domains/target.rs",
+      "line": 197,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_target_metadata_autodiscovery",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Target",
+      "method": "Target.getTargets",
+      "source": "crates/obscura-cdp/src/domains/target.rs",
+      "line": 39,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_target_get_targets",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Target",
+      "method": "Target.setAutoAttach",
+      "source": "crates/obscura-cdp/src/domains/target.rs",
+      "line": 187,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_target_metadata_autodiscovery",
+          "status": "pass"
+        }
+      ]
+    },
+    {
+      "domain": "Target",
+      "method": "Target.setDiscoverTargets",
+      "source": "crates/obscura-cdp/src/domains/target.rs",
+      "line": 8,
+      "coverage": "covered",
+      "checks": [
+        {
+          "check": "cdp_target_metadata_autodiscovery",
+          "status": "pass"
+        }
+      ]
+    }
+  ],
+  "criticalAbsentSurface": [
+    {
+      "method": "Page.captureScreenshot",
+      "requirement": "Playwright screenshots",
+      "observedCheck": "pass"
+    },
+    {
+      "method": "Page.startScreencast",
+      "requirement": "Playwright video/screencast",
+      "observedCheck": "pass"
+    },
+    {
+      "method": "WebAuthn.enable",
+      "requirement": "Passkey auth setup",
+      "observedCheck": "pass"
+    },
+    {
+      "method": "Schema.getDomains",
+      "requirement": "CDP self-inventory",
+      "observedCheck": "pass"
+    }
+  ]
+}
