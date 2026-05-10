@@ -93,8 +93,7 @@ pub async fn handle(
             ctx.fetch_intercept.enabled = false;
             ctx.fetch_intercept.patterns.clear();
             if let Some(page) = ctx.get_session_page_mut(session_id) {
-                page.intercept_enabled = false;
-                page.intercept_block_patterns.clear();
+                page.clear_intercept_tx();
             }
             let paused: Vec<_> = ctx.fetch_intercept.paused.drain().collect();
             for (_, req) in paused {
@@ -115,10 +114,19 @@ pub async fn handle(
 
             if let Some(paused) = ctx.fetch_intercept.paused.remove(request_id) {
                 let _ = paused.resolver.send(FetchResolution::Continue {
-                    url: params.get("url").and_then(|v| v.as_str()).map(|s| s.to_string()),
-                    method: params.get("method").and_then(|v| v.as_str()).map(|s| s.to_string()),
+                    url: params
+                        .get("url")
+                        .and_then(|v| v.as_str())
+                        .map(|s| s.to_string()),
+                    method: params
+                        .get("method")
+                        .and_then(|v| v.as_str())
+                        .map(|s| s.to_string()),
                     headers: None,
-                    post_data: params.get("postData").and_then(|v| v.as_str()).map(|s| s.to_string()),
+                    post_data: params
+                        .get("postData")
+                        .and_then(|v| v.as_str())
+                        .map(|s| s.to_string()),
                 });
             }
             Ok(json!({}))
@@ -178,9 +186,7 @@ pub async fn handle(
             }
             Ok(json!({}))
         }
-        "getResponseBody" => {
-            Ok(json!({ "body": "", "base64Encoded": false }))
-        }
+        "getResponseBody" => Ok(json!({ "body": "", "base64Encoded": false })),
         _ => Err(format!("Unknown Fetch method: {}", method)),
     }
 }

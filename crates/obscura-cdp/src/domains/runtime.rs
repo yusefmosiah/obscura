@@ -1,7 +1,9 @@
+use obscura_js::ops::ConsoleMessage;
 use obscura_js::runtime::RemoteObjectInfo;
 use serde_json::{json, Value};
 
 use crate::dispatch::CdpContext;
+use crate::types::CdpEvent;
 
 pub async fn handle(
     method: &str,
@@ -42,10 +44,13 @@ pub async fn handle(
                 .and_then(|v| v.as_bool())
                 .unwrap_or(false);
 
-            let page = ctx
-                .get_session_page_mut(session_id)
-                .ok_or("No page")?;
-            let info = page.evaluate_for_cdp(expression, return_by_value);
+            let (info, console_messages) = {
+                let page = ctx.get_session_page_mut(session_id).ok_or("No page")?;
+                let info = page.evaluate_for_cdp(expression, return_by_value);
+                let console_messages = page.take_console_messages();
+                (info, console_messages)
+            };
+            enqueue_console_events(ctx, session_id, console_messages);
 
             Ok(json!({ "result": remote_object_from_info(&info) }))
         }
@@ -69,20 +74,28 @@ pub async fn handle(
                 .map(|a| a.to_vec())
                 .unwrap_or_default();
 
-            let page = ctx
-                .get_session_page_mut(session_id)
-                .ok_or("No page")?;
-            let info =
-                page.call_function_on_for_cdp(function_declaration, object_id, &arguments, return_by_value, await_promise).await;
+            let (info, console_messages) = {
+                let page = ctx.get_session_page_mut(session_id).ok_or("No page")?;
+                let info = page
+                    .call_function_on_for_cdp(
+                        function_declaration,
+                        object_id,
+                        &arguments,
+                        return_by_value,
+                        await_promise,
+                    )
+                    .await;
+                let console_messages = page.take_console_messages();
+                (info, console_messages)
+            };
+            enqueue_console_events(ctx, session_id, console_messages);
 
             Ok(json!({ "result": remote_object_from_info(&info) }))
         }
         "getProperties" => {
             let object_id = params.get("objectId").and_then(|v| v.as_str());
             if let Some(oid) = object_id {
-                let page = ctx
-                    .get_session_page_mut(session_id)
-                    .ok_or("No page")?;
+                let page = ctx.get_session_page_mut(session_id).ok_or("No page")?;
                 let escaped_oid = oid.replace('\\', "\\\\").replace('\'', "\\'");
                 let code = format!(
                     "(function() {{\
@@ -102,8 +115,10 @@ pub async fn handle(
                         .map(|p| {
                             let name = p.get("name").and_then(|v| v.as_str()).unwrap_or("");
                             let value = p.get("value").unwrap_or(&Value::Null);
-                            let prop_type =
-                                p.get("type").and_then(|v| v.as_str()).unwrap_or("undefined");
+                            let prop_type = p
+                                .get("type")
+                                .and_then(|v| v.as_str())
+                                .unwrap_or("undefined");
                             let mut remote = json!({
                                 "type": prop_type,
                             });
@@ -164,8 +179,11 @@ pub async fn handle(
         "addBinding" => {
             let name = params.get("name").and_then(|v| v.as_str()).unwrap_or("");
             if !name.is_empty() {
-                if name.chars().all(|c| c.is_alphanumeric() || c == '_' || c == '$')
-                    && !name.chars().next().unwrap_or('0').is_ascii_digit() {
+                if name
+                    .chars()
+                    .all(|c| c.is_alphanumeric() || c == '_' || c == '$')
+                    && !name.chars().next().unwrap_or('0').is_ascii_digit()
+                {
                     if let Some(page) = ctx.get_session_page_mut(session_id) {
                         let code = format!(
                             "if (typeof globalThis.{name} === 'undefined') {{\
@@ -183,6 +201,33 @@ pub async fn handle(
         "getExceptionDetails" => Ok(json!({ "exceptionDetails": null })),
         "discardConsoleEntries" => Ok(json!({})),
         _ => Err(format!("Unknown Runtime method: {}", method)),
+    }
+}
+
+fn enqueue_console_events(
+    ctx: &mut CdpContext,
+    session_id: &Option<String>,
+    messages: Vec<ConsoleMessage>,
+) {
+    let timestamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_secs_f64();
+
+    for message in messages {
+        ctx.pending_events.push(CdpEvent {
+            method: "Runtime.consoleAPICalled".to_string(),
+            params: json!({
+                "type": message.level,
+                "args": [{
+                    "type": "string",
+                    "value": message.message,
+                }],
+                "executionContextId": 1,
+                "timestamp": timestamp,
+            }),
+            session_id: session_id.clone(),
+        });
     }
 }
 

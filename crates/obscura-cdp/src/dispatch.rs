@@ -27,6 +27,14 @@ pub struct CdpContext {
     pub isolated_worlds: Vec<String>,
     pub fetch_intercept: FetchInterceptState,
     pub intercept_tx: Option<tokio::sync::mpsc::UnboundedSender<InterceptedRequest>>,
+    pub screencast_sessions: HashMap<String, ScreencastSession>,
+}
+
+#[derive(Clone, Debug)]
+pub struct ScreencastSession {
+    pub format: String,
+    pub max_width: Option<u32>,
+    pub max_height: Option<u32>,
 }
 
 impl CdpContext {
@@ -64,6 +72,7 @@ impl CdpContext {
             fetch_intercept: FetchInterceptState::new(),
             intercept_tx: None,
             isolated_worlds: Vec::new(),
+            screencast_sessions: HashMap::new(),
         }
     }
 
@@ -90,9 +99,7 @@ impl CdpContext {
     }
 
     pub fn get_session_page(&self, session_id: &Option<String>) -> Option<&Page> {
-        let page_id = session_id
-            .as_ref()
-            .and_then(|sid| self.sessions.get(sid))?;
+        let page_id = session_id.as_ref().and_then(|sid| self.sessions.get(sid))?;
         self.get_page(page_id)
     }
 
@@ -165,16 +172,47 @@ pub async fn dispatch(req: &CdpRequest, ctx: &mut CdpContext) -> CdpResponse {
         "Input" => domains::input::handle(method, &req.params, ctx, &req.session_id).await,
         "Storage" => domains::storage::handle(method, &req.params, ctx, &req.session_id).await,
         "LP" => domains::lp::handle(method, &req.params, ctx, &req.session_id).await,
-        "Accessibility" => domains::accessibility::handle(method, &req.params, ctx, &req.session_id).await,
+        "Accessibility" => {
+            domains::accessibility::handle(method, &req.params, ctx, &req.session_id).await
+        }
+        "Schema" => match method {
+            "getDomains" => Ok(json!({
+                "domains": [
+                    {"name": "Accessibility", "version": "1.3"},
+                    {"name": "Audits", "version": "1.3"},
+                    {"name": "Browser", "version": "1.3"},
+                    {"name": "CSS", "version": "1.3"},
+                    {"name": "Debugger", "version": "1.3"},
+                    {"name": "DOM", "version": "1.3"},
+                    {"name": "Emulation", "version": "1.3"},
+                    {"name": "Fetch", "version": "1.3"},
+                    {"name": "HeapProfiler", "version": "1.3"},
+                    {"name": "Input", "version": "1.3"},
+                    {"name": "Inspector", "version": "1.3"},
+                    {"name": "Log", "version": "1.3"},
+                    {"name": "LP", "version": "1.3"},
+                    {"name": "Network", "version": "1.3"},
+                    {"name": "Overlay", "version": "1.3"},
+                    {"name": "Page", "version": "1.3"},
+                    {"name": "Performance", "version": "1.3"},
+                    {"name": "Profiler", "version": "1.3"},
+                    {"name": "Runtime", "version": "1.3"},
+                    {"name": "Schema", "version": "1.3"},
+                    {"name": "Security", "version": "1.3"},
+                    {"name": "ServiceWorker", "version": "1.3"},
+                    {"name": "Storage", "version": "1.3"},
+                    {"name": "Target", "version": "1.3"}
+                    ,{"name": "WebAuthn", "version": "1.3"}
+                ]
+            })),
+            _ => Err(format!("Unknown Schema method: {}", method)),
+        },
         // Accepted but no-op. Puppeteer's FrameManager.initialize calls
         // Audits.enable on connect — refusing it breaks puppeteer.connect()
         // before any user code runs.
-        "Emulation" | "Log" | "Performance" | "Security" | "CSS"
-        | "ServiceWorker" | "Inspector"
-        | "Debugger" | "Profiler" | "HeapProfiler" | "Overlay"
-        | "Audits" => {
-            Ok(json!({}))
-        }
+        "Emulation" | "Log" | "Performance" | "Security" | "CSS" | "ServiceWorker"
+        | "Inspector" | "Debugger" | "Profiler" | "HeapProfiler" | "Overlay" | "Audits"
+        | "WebAuthn" => Ok(json!({})),
         _ => Err(format!("Unknown domain: {}", domain)),
     };
 
@@ -205,7 +243,11 @@ mod tests {
     async fn audits_enable_returns_empty_success() {
         let mut ctx = CdpContext::new();
         let resp = dispatch(&req("Audits.enable"), &mut ctx).await;
-        assert!(resp.error.is_none(), "Audits.enable should not error: {:?}", resp.error);
+        assert!(
+            resp.error.is_none(),
+            "Audits.enable should not error: {:?}",
+            resp.error
+        );
         assert_eq!(resp.result, Some(json!({})));
     }
 

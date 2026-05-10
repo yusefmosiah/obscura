@@ -292,14 +292,14 @@ class Node {
   }
   replaceChild(newChild, oldChild) {
     if (!oldChild || !newChild) return oldChild;
-    _dom("insert_before", this._nid, newChild._nid, oldChild._nid);
+    _dom("insert_before", newChild._nid, oldChild._nid);
     _dom("remove_child", oldChild._nid);
     return oldChild;
   }
   insertBefore(n, ref) {
     if (!n) return n;
     if (!ref) { this.appendChild(n); return n; }
-    _dom("insert_before", this._nid, n._nid, ref._nid);
+    _dom("insert_before", n._nid, ref._nid);
     return n;
   }
   contains(o) { return o ? _dom("contains", this._nid, o._nid) === "true" : false; }
@@ -3085,6 +3085,28 @@ if (typeof Document !== 'undefined' && !Document.prototype.importNode) {
 // Wrong-but-non-throwing beats "undefined", which traps ad/analytics bootstraps in retry loops
 // (see issue #63).
 if (typeof Document !== 'undefined' && !Document.prototype.elementFromPoint) {
+  function _obscuraInlinePx(el, name, fallback) {
+    try {
+      var style = (el && el.getAttribute && el.getAttribute('style')) || '';
+      var re = new RegExp('(?:^|;)\\s*' + name + '\\s*:\\s*(-?\\d+(?:\\.\\d+)?)px', 'i');
+      var match = style.match(re);
+      return match ? Number(match[1]) : fallback;
+    } catch (_) {
+      return fallback;
+    }
+  }
+  function _obscuraElementBox(el) {
+    var style = (el && el.getAttribute && el.getAttribute('style')) || '';
+    if (!/(?:^|;)\s*(?:left|top|width|height)\s*:/i.test(style)) {
+      return null;
+    }
+    return {
+      left: _obscuraInlinePx(el, 'left', 0),
+      top: _obscuraInlinePx(el, 'top', 0),
+      width: _obscuraInlinePx(el, 'width', el && el.offsetWidth || 100),
+      height: _obscuraInlinePx(el, 'height', el && el.offsetHeight || 20),
+    };
+  }
   Document.prototype.elementFromPoint = function(x, y) {
     if (typeof x !== 'number' || typeof y !== 'number' || !isFinite(x) || !isFinite(y)) {
       return null;
@@ -3094,6 +3116,17 @@ if (typeof Document !== 'undefined' && !Document.prototype.elementFromPoint) {
     if (x < 0 || y < 0 || x > w || y > h) {
       return null;
     }
+    try {
+      var nodes = Array.from(this.querySelectorAll('*'));
+      for (var i = nodes.length - 1; i >= 0; i--) {
+        var el = nodes[i];
+        var box = _obscuraElementBox(el);
+        if (!box) continue;
+        if (x >= box.left && y >= box.top && x <= box.left + box.width && y <= box.top + box.height) {
+          return el;
+        }
+      }
+    } catch (_) {}
     return this.body || this.documentElement || null;
   };
   Document.prototype.elementsFromPoint = function(x, y) {
