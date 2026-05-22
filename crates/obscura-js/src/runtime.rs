@@ -25,6 +25,7 @@ pub struct ObscuraJsRuntime {
     state: Rc<RefCell<ObscuraState>>,
     object_store: HashMap<String, String>,
     object_counter: u64,
+    module_counter: u64,
 }
 
 impl ObscuraJsRuntime {
@@ -66,6 +67,7 @@ impl ObscuraJsRuntime {
             state,
             object_store: HashMap::new(),
             object_counter: 0,
+            module_counter: 0,
         }
     }
 
@@ -405,12 +407,20 @@ impl ObscuraJsRuntime {
         self.object_store.clear();
     }
     pub async fn load_module(&mut self, url: &str) -> Result<(), String> {
-        let specifier = deno_core::ModuleSpecifier::parse(url)
+        let mut specifier = deno_core::ModuleSpecifier::parse(url)
             .map_err(|e| format!("Invalid module URL {}: {}", url, e))?;
+
+        // Load the entry module through the configured module loader so the
+        // actual remote source is fetched and evaluated. A unique fragment
+        // prevents Deno from treating repeated navigations to the same module
+        // URL as an already-instantiated side module; fragments are not sent
+        // over HTTP.
+        self.module_counter += 1;
+        specifier.set_fragment(Some(&format!("obscura-entry-{}", self.module_counter)));
 
         let module_id = self
             .runtime
-            .load_side_es_module_from_code(&specifier, deno_core::ModuleCodeString::from_static(""))
+            .load_side_es_module(&specifier)
             .await
             .map_err(|e| format!("Module load error: {}", e))?;
 
@@ -1809,6 +1819,38 @@ mod tests {
             "https://example.com/",
             Some("http://proxy.test:8080".to_string()),
         );
+    }
+
+    #[tokio::test]
+    async fn load_module_fetches_and_evaluates_entry_source() {
+        use tokio::io::{AsyncReadExt, AsyncWriteExt};
+
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0")
+            .await
+            .unwrap();
+        let addr = listener.local_addr().unwrap();
+        let server = tokio::spawn(async move {
+            let (mut stream, _) = listener.accept().await.unwrap();
+            let mut request = [0u8; 1024];
+            let _ = stream.read(&mut request).await.unwrap();
+            let body = "globalThis.__obscuraExternalModuleRan = (globalThis.__obscuraExternalModuleRan || 0) + 1;";
+            let response = format!(
+                "HTTP/1.1 200 OK\r\nContent-Type: application/javascript\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}",
+                body.len(),
+                body
+            );
+            stream.write_all(response.as_bytes()).await.unwrap();
+        });
+
+        let url = format!("http://{addr}/entry.js");
+        let mut rt = ObscuraJsRuntime::with_base_url(&format!("http://{addr}/"));
+        rt.load_module(&url).await.unwrap();
+        server.await.unwrap();
+
+        let result = rt
+            .evaluate("globalThis.__obscuraExternalModuleRan")
+            .unwrap();
+        assert_eq!(result, serde_json::json!(1.0));
     }
 
 }
